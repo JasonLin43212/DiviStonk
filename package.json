@@ -1,0 +1,37 @@
+{
+  "name": "divistonk",
+  "version": "1.0.0",
+  "description": "track stocks and dividends",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client-install": "npm install --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JasonLin43212/DiviStonk.git"
+  },
+  "keywords": [
+    "stocks",
+    "dividends",
+    "tracker"
+  ],
+  "author": "Jason Lin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JasonLin43212/DiviStonk/issues"
+  },
+  "homepage": "https://github.com/JasonLin43212/DiviStonk#readme",
+  "dependencies": {
+    "concurrently": "^5.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.20"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
