@@ -6,6 +6,7 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 
+app.use('/api/dividend', require('./routes/dividend.js'));
 
 if (process.env.NODE_ENV === 'production') {
     // Set static folder
