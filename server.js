@@ -6,7 +6,20 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    dbName: "DiviStonk",
+};
+// Connect to Mongo
+mongoose
+    .connect(process.env.REACT_APP_MONGO_URL, options)
+    .then(() => console.log("MongoDB Connected..."))
+    .catch(err => console.log(err));
+
 app.use('/api/dividend', require('./routes/dividend.js'));
+app.use('/api/register', require('./routes/register.js'));
 
 if (process.env.NODE_ENV === 'production') {
     // Set static folder

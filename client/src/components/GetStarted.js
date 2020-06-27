@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class HomeAuthed extends Component {
+class GetStarted extends Component {
     render() {
         return (
             <div>
-                I am HomeAuthed
+                I am Get started
             </div>
         );
     }
 }
 
-export default HomeAuthed;
+export default GetStarted;
