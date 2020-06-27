@@ -20,6 +20,7 @@ mongoose
 
 app.use('/api/dividend', require('./routes/dividend.js'));
 app.use('/api/register', require('./routes/register.js'));
+app.use('/api/login', require('./routes/login.js'));
 
 if (process.env.NODE_ENV === 'production') {
     // Set static folder

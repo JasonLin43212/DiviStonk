@@ -12,10 +12,10 @@ router.post('/', (req, res) => {
         res.status(400).json({ msg: "Please enter all fields" });
     }
 
-    User.findOne({ email: email })
+    User.findOne({ email })
         .then(user => {
             if (user) {
-                res.status(400).json({ msg: `The email ${email} is taken.` });
+                return res.status(400).json({ msg: `The email ${email} is taken.` });
             }
 
             bcrypt.genSalt(10, (err, salt) => {
