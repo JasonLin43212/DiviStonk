@@ -22,11 +22,25 @@ class App extends Component {
 
     register = async (registrationInfo) => {
         const { name, email, password } = registrationInfo;
-        const data = { name, email, password };
-        postData('/api/register', data)
-            .then(res => {
-                console.log(res);
-            })
+        const res = await postData('/api/register', { name, email, password });
+        if (res.success) {
+            const { name, email } = res;
+            this.setState({ user: { name, email } });
+        }
+        else {
+            return res.msg;
+        }
+    }
+
+    login = async (userInfo) => {
+        const { email, password } = userInfo;
+        const res = await postData('/api/login', { email, password });
+        if (res.success) {
+            const { name, email } = res;
+            this.setState({ user: { name, email } });
+        } else {
+            return res.msg;
+        }
     }
 
     render() {
@@ -35,7 +49,9 @@ class App extends Component {
                 <Nav />
                 <Switch>
                     <Route exact path='/' component={Home}/>
-                    <Route path='/sign_in' component={SignIn}/>
+                    <Route path='/sign_in'>
+                        <SignIn login={this.login}/>
+                    </Route>
                     <Route path='/register'>
                         <Register register={this.register}/>
                     </Route>

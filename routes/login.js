@@ -9,14 +9,14 @@ router.post('/', (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        res.status(400).json({ msg: "Please enter all fields" });
+        res.status(400).json({ success: false, msg: "Please enter all fields" });
     }
 
     User.findOne({ email })
         .then(user => {
             const invalidMsg = "The email or password is invalid.";
             if (!user) {
-                return res.status(400).json({ msg: invalidMsg });
+                return res.status(400).json({ success: false, msg: invalidMsg });
             }
 
             bcrypt.compare(password, user.password, (err, correct) => {
@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
                 }
 
                 if (correct) {
-                    return res.json({ id: user.id, name: user.name, email: user.email })
+                    return res.json({ success: true, id: user.id, name: user.name, email: user.email })
                 }
                 else {
                     return res.status(400).json({ msg: invalidMsg });

@@ -9,13 +9,13 @@ router.post('/', (req, res) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-        res.status(400).json({ msg: "Please enter all fields" });
+        res.status(400).json({ success: false, msg: "Please enter all fields" });
     }
 
     User.findOne({ email })
         .then(user => {
             if (user) {
-                return res.status(400).json({ msg: `The email ${email} is taken.` });
+                return res.status(400).json({ success: false, msg: `The email ${email} is taken.` });
             }
 
             bcrypt.genSalt(10, (err, salt) => {
@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
                     const newUser = new User({ name, email, password: hash });
                     newUser.save()
                         .then(new_user => {
-                            res.json({ name, email, hash });
+                            res.json({ name, email, hash, success: true });
                         })
                         .catch(err => res.status(400).json({ error: err.message}));
                 })

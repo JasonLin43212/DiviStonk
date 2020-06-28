@@ -9,19 +9,22 @@ class Register extends Component {
             email: '',
             password: '',
             confirmPassword: '',
-            error: '',
+            msg: '',
         }
     }
 
-    register = e => {
+    register = async e => {
         e.preventDefault(); // Prevents page from refreshing
         const { name, email, password, confirmPassword } = this.state;
         if (!name || !email || !password || !confirmPassword) {
-            this.setState({ error: 'Please fill in all fields!' });
+            this.setState({ msg: 'Please fill in all fields!' });
         } else if (password !== confirmPassword) {
-            this.setState({ error: 'Your passwords do not match.' })
+            this.setState({ msg: 'Your passwords do not match.' })
         } else {
-            this.props.register(this.state);
+            const msg = await this.props.register(this.state);
+            if (msg) {
+                this.setState({ msg });
+            }
         }
     }
 
@@ -35,9 +38,9 @@ class Register extends Component {
             <div>
                 <h1>Register</h1>
                 {
-                    this.state.error
+                    this.state.msg
                     && <div className="error">
-                        {this.state.error}
+                        {this.state.msg}
                     </div>
                 }
                 <br/>
