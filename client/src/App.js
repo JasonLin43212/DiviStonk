@@ -7,9 +7,28 @@ import SignIn from './components/SignIn.js';
 import Register from './components/Register.js';
 import GetStarted from './components/GetStarted.js';
 import { Switch, Route } from 'react-router-dom';
+
+import { postData } from './utils.js';
 import './styles/App.css';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAuthenticated: false,
+            user: null,
+        }
+    }
+
+    register = async (registrationInfo) => {
+        const { name, email, password } = registrationInfo;
+        const data = { name, email, password };
+        postData('/api/register', data)
+            .then(res => {
+                console.log(res);
+            })
+    }
+
     render() {
         return (
             <div className="app">
@@ -17,7 +36,9 @@ class App extends Component {
                 <Switch>
                     <Route exact path='/' component={Home}/>
                     <Route path='/sign_in' component={SignIn}/>
-                    <Route path='/register' component={Register}/>
+                    <Route path='/register'>
+                        <Register register={this.register}/>
+                    </Route>
                     <Route path='/dividend' component={DividendPage}/>
                     <Route path='/search' component={Search}/>
                     <Route path='/get_started' component={GetStarted}/>
