@@ -55,7 +55,9 @@ class App extends Component {
                     <Route path='/register'>
                         <Register register={this.register}/>
                     </Route>
-                    <Route path='/dividend' component={DividendPage}/>
+                    <Route path='/dividend'>
+                        <DividendPage user={this.state.user}/>
+                    </Route>
                     <Route path='/search' component={Search}/>
                     <Route path='/get_started' component={GetStarted}/>
                 </Switch>

@@ -3,18 +3,16 @@ const router = express.Router();
 const lodash = require('lodash');
 const yahooFinance = require('yahoo-finance');
 
-const SYMBOLS = ['AAPL', 'GOOG'];
 
-
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
     yahooFinance.quote({
-        symbols: SYMBOLS,
+        symbols: req.body.tickers,
     }, function (err, quotes) {
         if (err) {
-            console.log(err);
+            return res.status(400).json({ success: false, msg: err.message });
         }
         else {
-            res.json(quotes);
+            return res.json({ quotes, success: true });
         }
     });
 });

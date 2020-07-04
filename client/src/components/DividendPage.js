@@ -4,14 +4,15 @@ class DividendPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dividend: null,
+            ticker: '',
+            info: null,
         }
     }
 
     render() {
         return (
             <div>
-
+                Dividend
             </div>
         );
     }
