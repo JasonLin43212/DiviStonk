@@ -27,6 +27,20 @@ class Search extends Component {
                 <button onClick={this.getStockInfo}>
                     Get Stock Info
                 </button>
+                {
+                    this.state.info &&
+                    <div>
+                        {this.state.info.results.map(stockInfo => (
+                            <div>
+                                <h2>{stockInfo.longName} ({stockInfo.symbol})</h2>
+                                <div>Dividend Rate: ${stockInfo.dividendRate}</div>
+                                <div>Dividend Yield: {stockInfo.dividendYield}</div>
+                                <div>Ex-Dividend Date: {stockInfo.exDividendDate}</div>
+                                <div>Five Year Average Dividend Yield: {stockInfo.fiveYearAvgDividendYield}</div>
+                            </div>
+                        ))}
+                    </div>
+                }
             </div>
         );
     }

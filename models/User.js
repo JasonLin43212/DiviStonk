@@ -17,6 +17,14 @@ const UserSchema = new Schema({
     date_created: {
         type: Date,
         default: Date.now,
+    },
+    portfolios: {
+        type: Array,
+        default: [],
+    },
+    dividends: {
+        type: Array,
+        default: [],
     }
 });
 
