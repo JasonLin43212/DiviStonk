@@ -26,10 +26,10 @@ router.post('/', (req, res) => {
 
                     const newUser = new User({ name, email, password: hash });
                     newUser.save()
-                        .then(new_user => {
-                            res.json({ name, email, hash, success: true });
-                        })
-                        .catch(err => res.status(400).json({ error: err.message}));
+                    .then(new_user => {
+                        res.json({ name, email, hash, success: true });
+                    })
+                    .catch(err => res.status(400).json({ error: err.message}));
                 })
             })
         })

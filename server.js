@@ -19,6 +19,7 @@ mongoose
     .catch(err => console.log(err));
 
 app.use('/api/dividend', require('./routes/dividend.js'));
+app.use('/api/portfolio', require('./routes/portfolio.js'));
 app.use('/api/register', require('./routes/register.js'));
 app.use('/api/login', require('./routes/login.js'));
 

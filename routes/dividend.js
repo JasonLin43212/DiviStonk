@@ -3,6 +3,7 @@ const router = express.Router();
 const lodash = require('lodash');
 const yahooFinance = require('yahoo-finance');
 
+const User = require('../models/User.js');
 
 router.post("/", (req, res) => {
     yahooFinance.quote({
