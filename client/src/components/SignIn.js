@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { AuthenticationContext } from '../contexts/AuthenticationContext';
 
 class SignIn extends Component {
+    static contextType = AuthenticationContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +21,7 @@ class SignIn extends Component {
         if (!email || !password) {
             this.setState({ msg: 'Please fill in all fields!' });
         } else {
-            const msg = await this.props.login(this.state);
+            const msg = await this.context.login(this.state);
             if (msg) {
                 this.setState({ msg });
             }
@@ -30,6 +34,9 @@ class SignIn extends Component {
 
 
     render() {
+        if (this.context.user) {
+            return (<Redirect to="/"/>)
+        }
         return (
             <div>
                 <h1>Sign In</h1>

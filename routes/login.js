@@ -5,6 +5,17 @@ const bcrypt = require('bcryptjs');
 
 const User = require('../models/User.js');
 
+const portfoliosFromId = async (ids) => {
+    let portfolios = [];
+    for (let _id of ids) {
+        await Portfolio.findOne({ _id })
+            .then(portfolio => portfolios.push(portfolio))
+            .catch(err => res.status(400).json({ error: err.message }));
+    }
+    return portfolios;
+}
+
+
 router.post('/', (req, res) => {
     const { email, password } = req.body;
 
@@ -25,7 +36,16 @@ router.post('/', (req, res) => {
                 }
 
                 if (correct) {
-                    return res.json({ success: true, id: user.id, name: user.name, email: user.email })
+                    const portfoliosPromise = portfoliosFromId(user.portfolios);
+                    portfoliosPromise.then(portfolios => {
+                        return res.json({
+                            portfolios,
+                            success: true,
+                            id: user._id,
+                            name: user.name,
+                            email: user.email
+                        })
+                    })
                 }
                 else {
                     return res.status(400).json({ msg: invalidMsg });

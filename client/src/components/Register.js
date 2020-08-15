@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+
+import { AuthenticationContext } from '../contexts/AuthenticationContext';
 
 class Register extends Component {
+    static contextType = AuthenticationContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -21,7 +25,7 @@ class Register extends Component {
         } else if (password !== confirmPassword) {
             this.setState({ msg: 'Your passwords do not match.' })
         } else {
-            const msg = await this.props.register(this.state);
+            const msg = await this.context.register(this.state);
             if (msg) {
                 this.setState({ msg });
             }
@@ -32,8 +36,10 @@ class Register extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-
     render() {
+        if (this.context.user) {
+            return (<Redirect to="/"/>)
+        }
         return (
             <div>
                 <h1>Register</h1>
@@ -55,9 +61,6 @@ class Register extends Component {
             </div>
         );
     }
-}
-Register.propTypes = {
-    register: PropTypes.func,
 }
 
 export default Register;

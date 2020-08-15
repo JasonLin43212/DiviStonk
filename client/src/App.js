@@ -8,60 +8,36 @@ import Register from './components/Register.js';
 import GetStarted from './components/GetStarted.js';
 import { Switch, Route } from 'react-router-dom';
 
-import { postData } from './utils.js';
+import AuthenticationContextProvider, { AuthenticationContext } from './contexts/AuthenticationContext';
+
 import './styles/App.css';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isAuthenticated: false,
-            user: null,
-        }
-    }
-
-    register = async (registrationInfo) => {
-        const { name, email, password } = registrationInfo;
-        const res = await postData('/api/register', { name, email, password });
-        if (res.success) {
-            const { name, email } = res;
-            this.setState({ user: { name, email } });
-        }
-        else {
-            return res.msg;
-        }
-    }
-
-    login = async (userInfo) => {
-        const { email, password } = userInfo;
-        const res = await postData('/api/login', { email, password });
-        if (res.success) {
-            const { name, email } = res;
-            this.setState({ user: { name, email } });
-        } else {
-            return res.msg;
-        }
-    }
-
     render() {
         return (
-            <div className="app">
-                <Nav />
-                <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <Route path='/sign_in'>
-                        <SignIn login={this.login}/>
-                    </Route>
-                    <Route path='/register'>
-                        <Register register={this.register}/>
-                    </Route>
-                    <Route path='/dividend'>
-                        <DividendPage user={this.state.user}/>
-                    </Route>
-                    <Route path='/search' component={Search}/>
-                    <Route path='/get_started' component={GetStarted}/>
-                </Switch>
-            </div>
+            <AuthenticationContextProvider>
+                <div className="app">
+                    <Nav/>
+                    <Switch>
+                        <Route exact path='/'>
+                            <Home/>
+                        </Route>
+                        <Route path='/sign_in'>
+                            <SignIn/>
+                        </Route>
+                        <Route path='/register'>
+                            <Register/>
+                        </Route>
+                        <Route path='/dividend'>
+                            <DividendPage/>
+                        </Route>
+                        <Route path='/search'>
+                            <Search/>
+                        </Route>
+                        <Route path='/get_started' component={GetStarted}/>
+                    </Switch>
+                </div>
+            </AuthenticationContextProvider>
         );
     }
 }
