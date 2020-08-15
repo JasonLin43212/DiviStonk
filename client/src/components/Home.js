@@ -8,6 +8,21 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            portfolio_name: '',
+            error: '',
+        }
+    }
+
+    addPortfolio = async () => {
+        const res = this.context.addPortfolio(this.state.portfolio_name);
+        res.then(msg => {
+            if (msg) {
+                this.setState({ error: msg });
+            } else {
+                this.setState({ error: '' });
+            }
+        });
     }
 
     render() {
@@ -19,12 +34,13 @@ class Home extends Component {
 
                     <div>
                         <div>
+                            <div>{this.state.error}</div>
                             <input
                                 type="text"
                                 name="name"
                                 onChange={e => this.setState({ portfolio_name: e.target.value })}
                             />
-                            <button onClick={() => this.context.addPortfolio(this.state.portfolio_name)}>
+                            <button onClick={() => this.addPortfolio()}>
                                 Add Portfolio
                             </button>
                         </div>
@@ -36,11 +52,19 @@ class Home extends Component {
                             </div>
                             :
                             <div>
-                                {user.portfolios.map(portfolio => (
-                                    <div>
+                                {user.portfolios.map((portfolio, k)  => (
+                                    <div key={k}>
                                         <div>
                                             {portfolio.name}
                                         </div>
+                                        <ul>
+                                        {portfolio.stocks.map((stock, j) => (
+                                            <li key={j}>
+                                                {stock.ticker}
+                                                {stock.quantity}
+                                            </li>
+                                        ))}
+                                        </ul>
                                     </div>
                                 ))}
                             </div>

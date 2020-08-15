@@ -11,7 +11,15 @@ class Search extends Component {
         this.state = {
             ticker: '',
             info: null,
-            portfolio: this.context ? this.context.user.portfolios[0] : '',
+            portfolio_id: '',
+            quantity: '1',
+            error: '',
+        }
+    }
+
+    componentDidMount() {
+        if (this.context.user && this.context.user.portfolios.length > 0) {
+            this.setState({ portfolio_id: this.context.user.portfolios[0]._id });
         }
     }
 
@@ -25,8 +33,12 @@ class Search extends Component {
         this.setState({ info: res });
     };
 
-    addStock = () => {
-        this.context.addStock();//
+    addStock = async (ticker) => {
+        const { portfolio_id, quantity } = this.state;
+        const res = await this.context.addStock(portfolio_id, ticker, parseInt(quantity));
+        if (res) {
+            this.setState({ error: res });
+        }
     }
 
     render() {
@@ -40,30 +52,41 @@ class Search extends Component {
                     this.state.info &&
                     <div>
                         {this.state.info.results.map(stockInfo => (
-                            <div>
+                            <div key={stockInfo.symbol}>
                                 <h2>{stockInfo.longName} ({stockInfo.symbol})</h2>
                                 <div>Dividend Rate: ${stockInfo.dividendRate}</div>
                                 <div>Dividend Yield: {stockInfo.dividendYield}</div>
                                 <div>Ex-Dividend Date: {stockInfo.exDividendDate}</div>
                                 <div>Five Year Average Dividend Yield: {stockInfo.fiveYearAvgDividendYield}</div>
+                                {
+                                    this.context.user &&
+                                    <div>
+                                        Add Stock to Portfolio
+                                        <select name='portfolio_id' onChange={this.handleInput}>
+                                            {this.context.user.portfolios.map((portfolio, k) => (
+                                                <option key={k} value={portfolio._id}>
+                                                    {portfolio.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <div>
+                                            Quantity:
+                                            <input
+                                                type="number"
+                                                name="quantity"
+                                                onChange={this.handleInput}
+                                                min="1"
+                                                value={this.state.quantity}
+                                            />
+                                            <button onClick={() => this.addStock(stockInfo.symbol)}>
+                                                Add Stock To Portfolio
+                                            </button>
+                                            <div>{this.state.error}</div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         ))}
-                        {
-                            this.context.user &&
-                            <div>
-                                Add Stock to Portfolio
-                                <select name='portfolio' onChange={this.handleInput}>
-                                    {this.context.user.portfolios.map((portfolio, k) => (
-                                        <option key={k}>
-                                            {portfolio.name}
-                                        </option>
-                                    ))}
-                                </select>
-                                <button onClick={this.addStock}>
-                                    Add Stock To Portfolio
-                                </button>
-                            </div>
-                        }
                     </div>
                 }
             </div>

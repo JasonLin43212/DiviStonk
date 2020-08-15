@@ -32,6 +32,9 @@ class AuthenticationContextProvider extends Component {
     }
 
     addPortfolio = async (name) => {
+        if (name.trim() === '') {
+            return "Please enter a name for your portfolio.";
+        }
         const { user } = this.state;
         if (user.portfolios.some(portfolio => portfolio.name === name)) {
             return `You already have a portfolio with the name: ${name}.`;
@@ -40,6 +43,24 @@ class AuthenticationContextProvider extends Component {
         if (res.success) {
             const { portfolio } = res;
             user.portfolios.push(portfolio);
+            this.setState({ user });
+        } else {
+            return res.msg;
+        }
+    }
+
+    addStock = async (portfolio_id, ticker, quantity) => {
+        if (!ticker) {
+            return "Ticker not found.";
+        }
+        if (!quantity || quantity <= 0) {
+            return "You cannot have 0 or less stocks.";
+        }
+        const res = await postData('/api/portfolio/add_stock', { portfolio_id, ticker, quantity });
+        if (res.success) {
+            const new_portfolio = res.portfolio;
+            const { user } = this.state;
+            user.portfolios = user.portfolios.map(portfolio => portfolio._id === new_portfolio._id ? new_portfolio : portfolio);
             this.setState({ user });
         } else {
             return res.msg;
@@ -55,6 +76,7 @@ class AuthenticationContextProvider extends Component {
                     register: this.register,
                     login: this.login,
                     addPortfolio: this.addPortfolio,
+                    addStock: this.addStock,
                  }}
             >
                 {this.props.children}
