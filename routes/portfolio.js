@@ -52,7 +52,7 @@ router.post('/edit/', (req, res) => {
     Portfolio.findOne({ _id: portfolio_id })
         .then(portfolio => {
             if (!portfolio) {
-                res.status(400).json({ success: false, msg: "Portfolio does not exist." });
+                res.json({ success: false, msg: "Portfolio does not exist." });
             }
 
             portfolio.name = new_name;
@@ -73,10 +73,11 @@ router.post('/delete/', (req, res) => {
     User.findOne({ _id: user_id })
         .then(user => {
             if (!user) {
-                res.status(400).json({ success: false, msg: "User does not exist." });
+                res.json({ success: false, msg: "User does not exist." });
             }
-
-            user.portfolios = user.portfolios.filter(portfolio => portfolio._id !== portfolio_id);
+            user.portfolios = user.portfolios.filter(a_portfolio_id => {
+                return a_portfolio_id.toString() !== portfolio_id;
+            });
             user.save()
                 .then(user => {
                     Portfolio.findOne({ _id: portfolio_id })
@@ -103,11 +104,11 @@ router.post('/add_stock/', (req, res) => {
     Portfolio.findOne({ _id: portfolio_id })
         .then(portfolio => {
             if (!portfolio) {
-                res.status(400).json({ success: false, msg: "Portfolio does not exist." });
+                res.json({ success: false, msg: "Portfolio does not exist." });
             }
 
             if (portfolio.stocks.some(stock => stock.ticker === ticker)) {
-                res.status(400).json({ success: false, msg: "Portfolio already has this stock. Go to Home to change the amount you have." });
+                res.json({ success: false, msg: "Portfolio already has this stock. Go to Home to change the amount you have." });
             }
 
             const newStock = { quantity, ticker };
@@ -116,8 +117,6 @@ router.post('/add_stock/', (req, res) => {
             portfolio.save()
                 .then(portfolio => {
                     res.json({
-                        ticker,
-                        quantity,
                         portfolio,
                         success: true,
                      });
@@ -132,7 +131,7 @@ router.post('/edit_stock/', (req, res) => {
     Portfolio.findOne({ _id: portfolio_id })
         .then(portfolio => {
             if (!portfolio) {
-                res.status(400).json({ success: false, msg: "Portfolio does not exist." });
+                res.json({ success: false, msg: "Portfolio does not exist." });
             }
 
             portfolio.stocks = portfolio.stocks.map(stock => {
@@ -143,8 +142,6 @@ router.post('/edit_stock/', (req, res) => {
             portfolio.save()
                 .then(portfolio => {
                     res.json({
-                        ticker,
-                        quantity,
                         portfolio,
                         success: true,
                     });
@@ -159,14 +156,13 @@ router.post('/delete_stock/', (req, res) => {
     Portfolio.findOne({ _id: portfolio_id })
         .then(portfolio => {
             if (!portfolio) {
-                res.status(400).json({ success: false, msg: "Portfolio does not exist." });
+                res.json({ success: false, msg: "Portfolio does not exist." });
             }
 
             portfolio.stocks = portfolio.stocks.filter(stock => stock.ticker !== ticker)
             portfolio.save()
                 .then(portfolio => {
                     res.json({
-                        ticker,
                         portfolio,
                         success: true,
                     });

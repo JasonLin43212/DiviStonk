@@ -56,6 +56,9 @@ class Home extends Component {
                                     <div key={k}>
                                         <div>
                                             {portfolio.name}
+                                            <span onClick={() => this.context.deletePortfolio(portfolio._id)}>
+                                                x
+                                            </span>
                                         </div>
                                         <ul>
                                         {portfolio.stocks.map((stock, j) => (

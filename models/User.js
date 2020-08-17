@@ -25,6 +25,10 @@ const UserSchema = new Schema({
     dividends: {
         type: Array,
         default: [],
+    },
+    num_dividends_created: {
+        type: Number,
+        default: 0,
     }
 });
 

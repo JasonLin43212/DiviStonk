@@ -32,7 +32,8 @@ router.post('/', (req, res) => {
                                 email,
                                 portfolios: [],
                                 id: new_user._id,
-                                success: true
+                                success: true,
+                                dividends: [],
                             });
                         })
                         .catch(err => res.status(400).json({ error: err.message}));

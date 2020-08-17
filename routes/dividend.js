@@ -38,4 +38,45 @@ router.post("/", (req, res) => {
     });
 });
 
+router.post("/add/", (req, res) => {
+    const { user_id, ticker, quantity, dividend_per_stock, date } = req.body;
+    console.log(user_id, ticker, quantity, dividend_per_stock, date);
+    User.findOne({ _id: user_id })
+        .then(user => {
+            if (!user) {
+                res.json({ success: false, msg: "The user does not exist." });
+            }
+
+            const newId = user.num_dividends_created;
+            user.dividends.push({
+                ticker,
+                quantity,
+                dividend_per_stock,
+                date,
+                id: newId,
+            });
+            user.num_dividends_created += 1;
+            user.save()
+                .then(user => {
+                    res.json({ dividends: user.dividends, success: true });
+                })
+        })
+});
+
+router.post("/delete/", (req, res) => {
+    const { user_id, dividend_id } = req.body;
+    User.findOne({ _id: user_id })
+        .then(user => {
+            if (!user) {
+                res.json({ success: false, msg: "The user does not exist." });
+            }
+
+            user.dividends = user.dividends.filter(dividend => dividend.id !== dividend_id);
+            user.save()
+                .then(user => {
+                    res.json({ dividends: user.dividends, success: true });
+                })
+        })
+});
+
 module.exports = router;

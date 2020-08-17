@@ -16,8 +16,8 @@ class Nav extends Component {
                     this.context.user ?
                     <>
                         <Link className="navlink" to="/search">Search</Link>
-                        <span>or</span>
                         <Link className="navlink" to="/dividend">Dividends</Link>
+                        <div onClick={this.context.logout}>Logout</div>
                     </>
                     :
                     <>
