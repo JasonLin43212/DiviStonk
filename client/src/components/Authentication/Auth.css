@@ -1,0 +1,33 @@
+.auth-title {
+    font-family: var(--header-font);
+    font-size: 90px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.auth-error {
+    color: red;
+    font-family: var(--general-font);
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.auth-form {
+    width: 50%;
+    margin-bottom: 30px;
+}
+
+.back {
+    position: fixed;
+    top: 1%;
+    left: 1%;
+    color: black;
+    font-family: var(--header-font);
+    font-size: 30px;
+}
+
+.back:hover {
+    color: #333333;
+    transform: scale(1.04);
+    transition: 0.4s;
+}

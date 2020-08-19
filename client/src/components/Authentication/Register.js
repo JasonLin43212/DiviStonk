@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+
+import InputField from '../Utils/InputField';
 
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
@@ -40,24 +42,42 @@ class Register extends Component {
         if (this.context.user) {
             return (<Redirect to="/"/>)
         }
+
+        const inputFields = [
+            {type: "text", name: "name", label: "Name:"},
+            {type: "email", name: "email", label: "Email:"},
+            {type: "password", name: "password", label: "Password:"},
+            {type: "password", name: "confirmPassword", label: "Confirm Password:"},
+        ];
+
         return (
-            <div>
-                <h1>Register</h1>
+            <div className="logged-out">
+                <Link to="/">
+                    <div className="back">
+                        ← Back
+                    </div>
+                </Link>
+                <h1 className="auth-title">Register</h1>
                 {
                     this.state.msg
-                    && <div className="error">
+                    && <div className="auth-error">
                         {this.state.msg}
                     </div>
                 }
                 <br/>
-                <form onSubmit={this.register}>
-                    <input type="text" name="name" placeholder="Enter name..." onChange={this.handleInput}/>
-                    <input type="email" name="email" placeholder="Enter email..." onChange={this.handleInput}/>
-                    <input type="password" name="password" placeholder="Enter password..." onChange={this.handleInput}/>
-                    <input type="password" name="confirmPassword" placeholder="Confirm password..." onChange={this.handleInput}/>
+                <form className="auth-form" onSubmit={this.register}>
+                    {inputFields.map((field, k) => (
+                        <InputField
+                            key={k}
+                            type={field.type}
+                            name={field.name}
+                            label={field.label}
+                            handleinput={this.handleInput}
+                        />
+                    ))}
                     <input type="submit" hidden/>
                 </form>
-                <button onClick={this.register}>Register</button>
+                <button className="light-btn logged-out-buttons" onClick={this.register}>Register</button>
             </div>
         );
     }

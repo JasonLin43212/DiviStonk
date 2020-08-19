@@ -10,7 +10,7 @@ class LoggedOutHome extends Component {
 
     render() {
         return (
-            <div className="page logged-out">
+            <div className="logged-out">
                 <h1 className="title">DiviStonk</h1>
                 <div className="sub-title">
                     Dividends are your friends!

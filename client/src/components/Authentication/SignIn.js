@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
+
+import InputField from '../Utils/InputField';
+
+import './Auth.css';
 
 class SignIn extends Component {
     static contextType = AuthenticationContext;
@@ -37,28 +41,43 @@ class SignIn extends Component {
         if (this.context.user) {
             return (<Redirect to="/"/>)
         }
+
+        const inputFields = [
+            {type: "email", name: "email", label: "Email:"},
+            {type: "password", name: "password", label: "Password:"},
+        ]
+
         return (
-            <div>
-                <h1>Sign In</h1>
+            <div className="logged-out">
+                <Link to="/">
+                    <div className="back">
+                        ← Back
+                    </div>
+                </Link>
+                <h1 className="auth-title">Log In</h1>
                 {
                     this.state.msg
-                    && <div className="error">
+                    && <div className="auth-error">
                         {this.state.msg}
                     </div>
                 }
                 <br/>
-                <form onSubmit={this.login}>
-                    <input type="email" name="email" placeholder="Enter email..." onChange={this.handleInput}/>
-                    <input type="password" name="password" placeholder="Enter password..." onChange={this.handleInput}/>
+                <form className="auth-form" onSubmit={this.login}>
+                    {inputFields.map((field, k) => (
+                        <InputField
+                            key={k}
+                            type={field.type}
+                            name={field.name}
+                            label={field.label}
+                            handleinput={this.handleInput}
+                        />
+                    ))}
                     <input type="submit" hidden/>
                 </form>
-                <button onClick={this.login}>Login</button>
+                <button className="light-btn logged-out-buttons" onClick={this.login}>Log In</button>
             </div>
         );
     }
-}
-SignIn.propTypes = {
-    login: PropTypes.func,
 }
 
 export default SignIn;
