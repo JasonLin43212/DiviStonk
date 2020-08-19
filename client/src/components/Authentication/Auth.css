@@ -15,6 +15,12 @@
 .auth-form {
     width: 50%;
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-submit {
+    margin: 0 auto !important;
 }
 
 .back {

@@ -75,9 +75,12 @@ class Register extends Component {
                             handleinput={this.handleInput}
                         />
                     ))}
-                    <input type="submit" hidden/>
+                    <input
+                        className="light-btn logged-out-buttons auth-submit" 
+                        type="submit"
+                        value="Register"
+                    />
                 </form>
-                <button className="light-btn logged-out-buttons" onClick={this.register}>Register</button>
             </div>
         );
     }

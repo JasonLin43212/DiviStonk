@@ -1,7 +1,8 @@
 .logged-out{
-    background: var(--project-background);
-    height: 100vh;
+    background-color: var(--project-background);
     display: flex;
+    min-height: 100vh;
+    padding-bottom: 25px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
