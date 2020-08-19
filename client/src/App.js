@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
-import Home from './components/Home.js';
-import Nav from './components/Nav.js';
-import Search from './components/Search.js';
-import DividendPage from './components/DividendPage.js';
-import SignIn from './components/SignIn.js';
-import Register from './components/Register.js';
-import GetStarted from './components/GetStarted.js';
+import Home from './components/Home';
+import Nav from './components/Utils/Nav';
+import Search from './components/Search';
+import DividendPage from './components/DividendPage';
+import SignIn from './components/Authentication/SignIn';
+import Register from './components/Authentication/Register';
+import GetStarted from './components/GetStarted';
 import { Switch, Route } from 'react-router-dom';
 
 import AuthenticationContextProvider, { AuthenticationContext } from './contexts/AuthenticationContext';
 
-import './styles/App.css';
+import './App.css';
 
 class App extends Component {
     render() {
         return (
             <AuthenticationContextProvider>
                 <div className="app">
-                    <Nav/>
+                    <Switch>
+                        <Nav/>
+                    </Switch>
                     <Switch>
                         <Route exact path='/'>
                             <Home/>

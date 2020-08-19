@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { postData } from '../utils';
+import { postData } from '../../utils.js';
 
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
+import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 class Search extends Component {
     static contextType = AuthenticationContext;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
+import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 class DividendPage extends Component {
     static contextType = AuthenticationContext;

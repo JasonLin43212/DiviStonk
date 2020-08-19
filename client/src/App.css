@@ -1,0 +1,15 @@
+.page {
+    padding: 0 100px;
+}
+
+.light-btn {
+    font-family: var(--header-font);
+    background-color: white;
+    border-color: black;
+}
+
+.light-btn:hover {
+    background-color: var(--table-secondary);
+    transition: 0.4s;
+    transform: scale(1.04);
+}

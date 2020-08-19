@@ -1,0 +1,33 @@
+.logged-out{
+    background: var(--project-background);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title {
+    font-family: var(--header-font);
+    font-size: 130px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.sub-title {
+    font-family: var(--general-font);
+    font-size: 35px;
+    font-weight: 400;
+    margin: 0 0 40px;
+}
+
+.logged-out-button-div {
+    font-size: 30px;
+    font-family: var(--general-font);
+}
+
+.logged-out-buttons {
+    font-size: 40px;
+    margin: 0 30px;
+    padding: 5px 20px;
+}

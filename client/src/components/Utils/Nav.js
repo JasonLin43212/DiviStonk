@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Nav.css';
+import './Nav.css';
 
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
+import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 class Nav extends Component {
     static contextType = AuthenticationContext;
 
     render() {
+        if (!this.context.user) {
+            return (<></>);
+        }
         return (
             <div className="navbar">
                 <Link className="navlink" to="/">Home</Link>
