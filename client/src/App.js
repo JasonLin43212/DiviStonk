@@ -5,7 +5,7 @@ import Search from './components/Search';
 import DividendPage from './components/DividendPage';
 import SignIn from './components/Authentication/SignIn';
 import Register from './components/Authentication/Register';
-import GetStarted from './components/GetStarted';
+import Help from './components/Help';
 import Error from './components/Utils/Error';
 import { Switch, Route } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ class App extends Component {
                     <Route path='/search'>
                         <Search/>
                     </Route>
-                    <Route path='/get_started' component={GetStarted}/>
+                    <Route path='/help' component={Help}/>
                     <Route path='/' component={Error}/>
                 </Switch>
             </AuthenticationContextProvider>

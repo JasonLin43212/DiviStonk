@@ -4,6 +4,14 @@ import './Nav.css';
 
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
+const NAVLINKS = [
+    { link: '/', name: 'Home'},
+    { link: '/dividend', name: 'My Dividends'},
+    { link: '/search', name: 'Search For Stocks'},
+    { link: '/help', name: 'Help'},
+    // { link: '/portfolio', name: 'Home'},
+];
+
 class Nav extends Component {
     static contextType = AuthenticationContext;
 
@@ -11,24 +19,20 @@ class Nav extends Component {
         if (!this.context.user) {
             return (<></>);
         }
+        const currentPath = this.props.location.pathname;
         return (
             <div className="navbar">
-                <Link className="navlink" to="/">Home</Link>
-                <Link className="navlink" to="/get_started">Get Started</Link>
-                {
-                    this.context.user ?
-                    <>
-                        <Link className="navlink" to="/search">Search</Link>
-                        <Link className="navlink" to="/dividend">Dividends</Link>
-                        <div onClick={this.context.logout}>Logout</div>
-                    </>
-                    :
-                    <>
-                        <Link className="navlink" to="/sign_in">Sign In</Link>
-                        <span>or</span>
-                        <Link className="navlink" to="/register">Register</Link>
-                    </>
-                }
+                <h1 className="navbar-title">DiviStonk</h1>
+                {NAVLINKS.map((navlink,k) => (
+                    <Link
+                        key={k}
+                        className={`navlink ${currentPath === navlink.link ? 'navlink-active' : ''}`}
+                        to={navlink.link}
+                    >
+                        {navlink.name}
+                    </Link>
+                ))}
+                <div className="navlink" onClick={this.context.logout}>Logout</div>
             </div>
         );
     }

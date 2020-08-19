@@ -1,7 +1,42 @@
 .navbar {
-    margin: 20px;
+    width: 18%;
+    position: fixed;
+    left: 0;
+    height: 100vh;
+    background: var(--project-background);
+    box-shadow: 1px 1px 8px 1px #AAA;
+    display: flex;
+    flex-direction: column;
+    padding: 1% 0 0 2%;
+    z-index: 100;
 }
 
 .navlink {
-    margin: 0 10px;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: var(--general-font);
+    font-size: 22px;
+    margin: 0 0 10px;
+}
+
+.navlink:hover {
+    color: #555555;
+}
+
+.navlink-active {
+    text-decoration: underline;
+    color: black;
+}
+
+.navlink-active:hover {
+    color: black;
+}
+
+.navbar-title {
+    color: black;
+    font-family: var(--header-font);
+    margin: 0 0 20px;
+    font-weight: 400;
+    font-size: 45px;
 }
