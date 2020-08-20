@@ -9,12 +9,38 @@ import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 class LoggedInHome extends Component {
     static contextType = AuthenticationContext;
+    constructor(props) {
+        super(props);
+        this.state = {
+            portfolioModal: false,
+        };
+    }
+
+    openAddPortfolio = () => {
+        this.setState({ portfolioModal: !this.state.portfolioModal });
+    }
 
     render() {
         const { user } = this.context;
+        console.log(user);
         return (
             <div className="logged-in">
                 <div className="in-header">Good Morning, {user.name}!</div>
+                <div className="table-title">
+                    <div className="table-header">Portfolios</div>
+                    <button
+                        className="light-btn-2"
+                        onClick={this.openAddPortfolio}
+                    > + Add Portfolio</button>
+                </div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <th>Total Value</th>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         )
     }

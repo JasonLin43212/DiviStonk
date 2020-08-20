@@ -24,3 +24,6 @@
 }
 
 /* Logged In */
+.table-title {
+    display: flex;
+}
