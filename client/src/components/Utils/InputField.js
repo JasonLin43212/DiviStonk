@@ -3,11 +3,11 @@ import './InputField.css'
 
 class InputField extends Component {
     render() {
-        const { type, name, handleinput, label } = this.props;
+        const { type, name, handleinput, label, fontSize } = this.props;
         return (
             <div className="input-field">
-                <label className="input-label">{label}</label>
-                <input className="input" type={type} name={name} onChange={handleinput}/>
+                <label style={{ fontSize }} className="input-label">{label}</label>
+                <input style={{ fontSize }} className="input" type={type} name={name} onChange={handleinput}/>
             </div>
         )
     }

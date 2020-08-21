@@ -73,10 +73,11 @@ class Register extends Component {
                             name={field.name}
                             label={field.label}
                             handleinput={this.handleInput}
+                            fontSize="22px"
                         />
                     ))}
                     <input
-                        className="light-btn logged-out-buttons auth-submit" 
+                        className="light-btn logged-out-buttons auth-submit"
                         type="submit"
                         value="Register"
                     />

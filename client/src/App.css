@@ -10,6 +10,30 @@
     transform: scale(1.04);
 }
 
+.light-btn-2 {
+    font-family: var(--general-font);
+    background-color: white;
+    border-color: black;
+}
+
+.light-btn-2:hover {
+    background-color: var(--table-secondary);
+    transition: 0.4s;
+    transform: scale(1.04);
+}
+
+.dark-btn {
+    font-family: var(--general-font);
+    background-color: var(--project-background);
+    border-color: black;
+}
+
+.dark-btn:hover {
+    background-color: var(--secondary-background);
+    transition: 0.4s;
+    transform: scale(1.04);
+}
+
 .logged-in {
     background-color: var(--secondary-background);
     padding: 20px 50px 0 23%;
@@ -31,4 +55,33 @@
     font-size: 50px;
     font-weight: 400;
     border-bottom: 3px solid black;
+}
+
+table {
+    border: 3px solid black;
+    font-family: var(--general-font);
+    width: 100%;
+    text-align: center;
+    border-spacing: 0px;
+}
+
+th {
+    border: none;
+    padding: 5px;
+}
+
+td {
+    padding: 5px;
+}
+
+.table-header-row {
+    background: var(--project-background);
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.table-data-row {
+    font-weight: 500;
+    font-size: 25px;
+    padding: 5px 0;
 }

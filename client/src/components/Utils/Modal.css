@@ -1,0 +1,58 @@
+.darken {
+    background: rgba(0, 0, 0, 0.65);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000;
+}
+
+.modal {
+    position: fixed;
+    top: 20%;
+    background: white;
+    width: 60%;
+    margin: 0 20%;
+    padding: 20px 40px;
+    border: 3px solid black;
+}
+
+.modal-header {
+    display: flex;
+    border-bottom: 3px solid black;
+    margin-bottom: 30px;
+}
+
+.modal-title {
+    font-family: var(--header-font);
+    font-size: 40px;
+}
+
+.close-div {
+    margin-left: auto;
+}
+
+.close {
+    font-family: var(--general-font);
+    font-weight: 600;
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #666;
+    transition: 0.4s;
+}
+
+.modal-inputs {
+    width: 50%;
+}
+
+.modal-error {
+    color: red;
+    font-family: var(--general-font);
+    font-size: 15px;
+    margin-bottom: 20px;
+}

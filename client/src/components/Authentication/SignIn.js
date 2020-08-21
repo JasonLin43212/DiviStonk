@@ -70,6 +70,7 @@ class SignIn extends Component {
                             name={field.name}
                             label={field.label}
                             handleinput={this.handleInput}
+                            fontSize="25px"
                         />
                     ))}
                     <input

@@ -24,6 +24,27 @@
 }
 
 /* Logged In */
-.table-title {
+.table-title-div {
     display: flex;
+    margin: 10px 0;
+}
+
+.table-title {
+    font-family: var(--header-font);
+    font-size: 40px;
+}
+
+.table-add-div {
+    margin-left: auto;
+}
+
+.table-add {
+    font-size: 20px;
+    padding: 2px 20px;
+    margin-top: 15px;
+}
+
+.portfolio-add {
+    font-size: 25px;
+    padding: 5px 30px;
 }

@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
-// <span onClick={() => this.context.deletePortfolio(portfolio._id)}>
-//     x
-// </span>
+import PortfolioModal from './PortfolioModal';
+
 
 class LoggedInHome extends Component {
     static contextType = AuthenticationContext;
@@ -16,29 +15,55 @@ class LoggedInHome extends Component {
         };
     }
 
-    openAddPortfolio = () => {
+    toggleAddPortfolio = () => {
         this.setState({ portfolioModal: !this.state.portfolioModal });
     }
 
     render() {
         const { user } = this.context;
-        console.log(user);
+        const stockData = this.context.stockData ? this.context.stockData : null;
         return (
             <div className="logged-in">
+                {
+                    this.state.portfolioModal &&
+                     <PortfolioModal
+                        close={this.toggleAddPortfolio}
+                     />
+                }
                 <div className="in-header">Good Morning, {user.name}!</div>
-                <div className="table-title">
-                    <div className="table-header">Portfolios</div>
-                    <button
-                        className="light-btn-2"
-                        onClick={this.openAddPortfolio}
-                    > + Add Portfolio</button>
+                <div className="table-title-div">
+                    <div className="table-title">Portfolios</div>
+                    <div className="table-add-div">
+                        <button
+                            className="light-btn-2 table-add"
+                            onClick={this.toggleAddPortfolio}
+                        >
+                            + Add Portfolio
+                        </button>
+                    </div>
                 </div>
                 <table>
                     <tbody>
-                        <tr>
+                        <tr className="table-header-row">
                             <th>Name</th>
                             <th>Total Value</th>
                         </tr>
+                        {user.portfolios.map((portfolio, k) => {
+                            let totalValue = "Getting Total Value...";
+                            if (stockData) {
+                                totalValue = portfolio.stocks.reduce((acc, stock) => {
+                                    return acc + (stockData[stock.ticker].regularMarketPrice * stock.quantity);
+                                }, 0);
+                                totalValue = Math.round(totalValue * 100) / 100;
+                                totalValue = "$" + totalValue;
+                            }
+                            return (
+                                <tr className="table-data-row" key={k}>
+                                    <td><Link to="/portfolio">{portfolio.name}</Link></td>
+                                    <td>{totalValue}</td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
@@ -47,39 +72,3 @@ class LoggedInHome extends Component {
 }
 
 export default LoggedInHome;
-
-
-// this.state = {
-//     portfolio_name: '',
-//     error: '',
-// }
-
-// addPortfolio = async () => {
-//     const res = this.context.addPortfolio(this.state.portfolio_name);
-//     res.then(msg => {
-//         if (msg) {
-//             this.setState({ error: msg });
-//         } else {
-//             this.setState({ error: '' });
-//         }
-//     });
-// }
-
-// <div>
-//     Welcome {user.name}!
-//
-//     <div>
-//         <div>
-//             <div>{this.state.error}</div>
-//             <input
-//                 type="text"
-//                 name="name"
-//                 onChange={e => this.setState({ portfolio_name: e.target.value })}
-//             />
-//             <button onClick={() => this.addPortfolio()}>
-//                 Add Portfolio
-//             </button>
-//         </div>
-//
-//     </div>
-// </div>

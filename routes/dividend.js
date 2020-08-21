@@ -13,10 +13,12 @@ router.post("/", (req, res) => {
             return res.status(400).json({ success: false, msg: err.message });
         }
         else {
+            console.log(quotes);
             const results = Object.keys(quotes).map(ticker => {
                 const {
                     symbol,
                     longName,
+                    regularMarketPrice,
                 } = quotes[ticker].price;
                 const {
                     dividendRate,
@@ -31,6 +33,7 @@ router.post("/", (req, res) => {
                     dividendYield,
                     exDividendDate,
                     fiveYearAvgDividendYield,
+                    regularMarketPrice,
                 }
             });
             return res.json({ results, success: true });

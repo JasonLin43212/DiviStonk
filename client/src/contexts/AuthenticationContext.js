@@ -8,12 +8,31 @@ export const AuthenticationContext = createContext();
 class AuthenticationContextProvider extends Component {
     state = {
         user: null,
+        stockData: null,
+    }
+
+    getStockData = async () => {
+        const stockTickers = new Set();
+        this.state.user.portfolios.forEach(portfolio => {
+            portfolio.stocks.forEach(stock => {
+                stockTickers.add(stock.ticker);
+            });
+        });
+        const body = { tickers: Array.from(stockTickers)};
+        const res = await postData('/api/dividend', body);
+        const stockData = {};
+        if (res.success) {
+            res.results.forEach(data => {
+                stockData[data.symbol] = data;
+            })
+            this.setState({ stockData });
+        }
     }
 
     componentDidMount() {
         const storedUser = JSON.parse(window.localStorage.getItem('user'));
         if (!this.state.user && storedUser) {
-            this.setState({ user: storedUser });
+            this.setState({ user: storedUser }, () => this.getStockData());
         }
     }
 
@@ -199,7 +218,6 @@ class AuthenticationContextProvider extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <AuthenticationContext.Provider
                 value={{
