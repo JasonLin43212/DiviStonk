@@ -55,6 +55,7 @@
     font-size: 50px;
     font-weight: 400;
     border-bottom: 3px solid black;
+    margin-bottom: 30px;
 }
 
 table {
@@ -84,4 +85,12 @@ td {
     font-weight: 500;
     font-size: 25px;
     padding: 5px 0;
+}
+
+.table-data-row:nth-child(2n) {
+    background: var(--secondary-background);
+}
+
+.table-data-row:nth-child(2n+1) {
+    background: var(--table-secondary);
 }

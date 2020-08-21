@@ -59,7 +59,11 @@ class LoggedInHome extends Component {
                             }
                             return (
                                 <tr className="table-data-row" key={k}>
-                                    <td><Link to="/portfolio">{portfolio.name}</Link></td>
+                                    <td>
+                                        <Link className="portfolio-link" to={`/portfolio/${portfolio._id}`}>
+                                            {portfolio.name}
+                                        </Link>
+                                    </td>
                                     <td>{totalValue}</td>
                                 </tr>
                             );

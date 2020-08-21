@@ -6,6 +6,7 @@ import DividendPage from './components/DividendPage';
 import SignIn from './components/Authentication/SignIn';
 import Register from './components/Authentication/Register';
 import Help from './components/Help';
+import Portfolio from './components/Portfolio';
 import Error from './components/Utils/Error';
 import { Switch, Route } from 'react-router-dom';
 
@@ -37,6 +38,7 @@ class App extends Component {
                         <Search/>
                     </Route>
                     <Route path='/help' component={Help}/>
+                    <Route path='/portfolio/:id' component={Portfolio}/>
                     <Route path='/' component={Error}/>
                 </Switch>
             </AuthenticationContextProvider>
