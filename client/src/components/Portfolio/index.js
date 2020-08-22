@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import QuantityModal from './QuantityModal';
+import DeleteModal from './DeleteModal';
 
-import { convertDateToWord } from '../Utils';
+
+import { convertDateToWord, formatPrice } from '../Utils';
 
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
@@ -49,6 +52,22 @@ class Portfolio extends Component {
 
         return (
             <div className="logged-in">
+                {
+                    this.state.currentModal === "quantity" &&
+                    <QuantityModal
+                        portfolio={portfolio}
+                        stock={this.state.editingStock}
+                        close={this.closeModal}
+                    />
+                }
+                {
+                    this.state.currentModal === "delete" &&
+                    <DeleteModal
+                        portfolio={portfolio}
+                        stock={this.state.editingStock}
+                        close={this.closeModal}
+                    />
+                }
                 <div className="in-header">{portfolio.name} Portfolio</div>
                 <table>
                     <tbody>
@@ -61,24 +80,39 @@ class Portfolio extends Component {
                             <th></th>
                         </tr>
                         {portfolio.stocks.map((stock, k) => {
-                            const price = stockData
-                                ? Math.round(stockData[stock.ticker].regularMarketPrice * 100) / 100
+                            let price = stockData
+                                ? stockData[stock.ticker].regularMarketPrice
                                 : 'Loading...';
-                            const totalPrice = stockData
-                                ? Math.round(price * stock.quantity * 100) / 100
+                            let totalPrice = stockData
+                                ? price * stock.quantity
                                 : 'Loading...';
                             const exDate = stockData
                                 ? convertDateToWord(stockData[stock.ticker].exDividendDate)
                                 : 'Loading...';
+                            if (price !== 'Loading...') {
+                                price = formatPrice(price);
+                            }
+                            if (totalPrice !== 'Loading...') {
+                                totalPrice =  formatPrice(totalPrice);
+                            }
                             return (
                                 <tr className="table-data-row" key={k}>
                                     <td>{stock.ticker}</td>
-                                    <td onClick={() => this.openQuantityModal(stock)}>{stock.quantity}</td>
-                                    <td>${price}</td>
-                                    <td>${totalPrice}</td>
+                                    <td onClick={() => this.openQuantityModal(stock)}>
+                                        <div className='table-clickable'>
+                                            {stock.quantity}
+                                        </div>
+                                    </td>
+                                    <td>{price}</td>
+                                    <td>{totalPrice}</td>
                                     <td>{exDate}</td>
                                     <td>
-                                        <button className="table-button">Delete</button>
+                                        <button
+                                            onClick={() => this.openDeleteModal(stock)}
+                                            className="table-button"
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                            );

@@ -6,6 +6,9 @@ const yahooFinance = require('yahoo-finance');
 const User = require('../models/User.js');
 
 router.post("/", (req, res) => {
+    if (req.body.tickers.length === 0) {
+        return res.json({ success: true, results: [] });
+    }
     yahooFinance.quote({
         symbols: req.body.tickers,
     }, function (err, quotes) {
@@ -13,7 +16,6 @@ router.post("/", (req, res) => {
             return res.status(400).json({ success: false, msg: err.message });
         }
         else {
-            console.log(quotes);
             const results = Object.keys(quotes).map(ticker => {
                 const {
                     symbol,

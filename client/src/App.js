@@ -10,7 +10,7 @@ import Portfolio from './components/Portfolio';
 import Error from './components/Utils/Error';
 import { Switch, Route } from 'react-router-dom';
 
-import AuthenticationContextProvider, { AuthenticationContext } from './contexts/AuthenticationContext';
+import AuthenticationContextProvider from './contexts/AuthenticationContext';
 
 import './App.css';
 

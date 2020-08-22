@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 import LoggedInHome from './LoggedInHome';
 import LoggedOutHome from './LoggedOutHome';

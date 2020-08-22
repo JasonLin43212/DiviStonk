@@ -94,3 +94,26 @@ td {
 .table-data-row:nth-child(2n+1) {
     background: var(--table-secondary);
 }
+
+.table-button {
+    background: var(--project-background);
+    border: 3px solid black;
+    font-family: var(--general-font);
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.table-button:hover {
+    background: #666;
+    color: white;
+    transition: 0.4s;
+}
+
+.table-clickable {
+    cursor: pointer;
+    color: black;
+}
+
+.table-clickable:hover {
+    color: #666;
+}

@@ -43,7 +43,7 @@ class Search extends Component {
 
     render() {
         return (
-            <div>
+            <div className="logged-in">
                 <input type='text' name='ticker' onChange={this.handleInput}/>
                 <button onClick={this.getStockInfo}>
                     Get Stock Info

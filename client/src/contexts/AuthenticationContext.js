@@ -18,6 +18,7 @@ class AuthenticationContextProvider extends Component {
                 stockTickers.add(stock.ticker);
             });
         });
+
         const body = { tickers: Array.from(stockTickers)};
         const res = await postData('/api/dividend', body);
         const stockData = {};
@@ -36,8 +37,11 @@ class AuthenticationContextProvider extends Component {
         }
     }
 
-    storeUser = () => {
+    storeUser = (getStock) => {
         window.localStorage.setItem('user', JSON.stringify(this.state.user));
+        if (getStock) {
+            this.getStockData();
+        }
     }
 
     removeUser = () => {
@@ -48,7 +52,7 @@ class AuthenticationContextProvider extends Component {
         const { name, email, password } = registrationInfo;
         const res = await postData('/api/register', { name, email, password });
         if (res.success) {
-            this.setState({ user: res }, () => this.storeUser());
+            this.setState({ user: res }, () => this.storeUser(false));
         }
         else {
             return res.msg;
@@ -59,14 +63,14 @@ class AuthenticationContextProvider extends Component {
         const { email, password } = userInfo;
         const res = await postData('/api/login', { email, password });
         if (res.success) {
-            this.setState({ user: res }, () => this.storeUser());
+            this.setState({ user: res }, () => this.storeUser(true));
         } else {
             return res.msg;
         }
     }
 
     logout = () => {
-        this.setState({ user: null }, () => this.removeUser());
+        this.setState({ user: null, stockData: null }, () => this.removeUser());
     }
 
     addPortfolio = async (name) => {
@@ -81,7 +85,7 @@ class AuthenticationContextProvider extends Component {
         if (res.success) {
             const { portfolio } = res;
             user.portfolios.push(portfolio);
-            this.setState({ user }, () => this.storeUser());
+            this.setState({ user }, () => this.storeUser(false));
         } else {
             return res.msg;
         }
@@ -99,7 +103,7 @@ class AuthenticationContextProvider extends Component {
         if (res.success) {
             const new_portfolio = res.portfolio;
             user.portfolios = user.portfolios.map(portfolio => portfolio._id === new_portfolio._id ? new_portfolio : portfolio);
-            this.setState({ user }, () => this.storeUser());
+            this.setState({ user }, () => this.storeUser(false));
         } else {
             return res.msg;
         }
@@ -111,7 +115,7 @@ class AuthenticationContextProvider extends Component {
         if (res.success) {
             const deleted_portfolio = res.portfolio;
             user.portfolios = user.portfolios.filter(portfolio => portfolio._id !== deleted_portfolio._id);
-            this.setState({ user }, () => this.storeUser());
+            this.setState({ user }, () => this.storeUser(false));
         } else {
             return res.msg;
         }
@@ -129,7 +133,7 @@ class AuthenticationContextProvider extends Component {
             const new_portfolio = res.portfolio;
             const { user } = this.state;
             user.portfolios = user.portfolios.map(portfolio => portfolio._id === new_portfolio._id ? new_portfolio : portfolio);
-            this.setState({ user }, () => this.storeUser());
+            this.setState({ user }, () => this.storeUser(true));
         } else {
             return res.msg;
         }
@@ -145,9 +149,10 @@ class AuthenticationContextProvider extends Component {
         const res = await postData('/api/portfolio/edit_stock', { portfolio_id, ticker, quantity });
         if (res.success) {
             const new_portfolio = res.portfolio;
+            console.log(new_portfolio, "edited stock!");
             const { user } = this.state;
             user.portfolios = user.portfolios.map(portfolio => portfolio._id === new_portfolio._id ? new_portfolio : portfolio);
-            this.setState({ user }, () => this.storeUser());
+            this.setState({ user }, () => this.storeUser(false));
         } else {
             return res.msg;
         }
@@ -159,10 +164,10 @@ class AuthenticationContextProvider extends Component {
         }
         const res = await postData('/api/portfolio/delete_stock', { portfolio_id, ticker });
         if (res.success) {
-            const deleted_portfolio = res.portfolio;
+            const { portfolio } = res;
             const { user } = this.state;
-            user.portfolios = user.portfolios.filter(portfolio => portfolio._id !== deleted_portfolio._id);
-            this.setState({ user }, () => this.storeUser());
+            user.portfolios = user.portfolios.map(a_portfolio => portfolio._id === a_portfolio._id ? portfolio : a_portfolio);
+            this.setState({ user }, () => this.storeUser(false));
         } else {
             return res.msg;
         }
@@ -194,7 +199,7 @@ class AuthenticationContextProvider extends Component {
         if (res.success) {
             const { dividends } = res;
             user.dividends = dividends;
-            this.setState({ user }, () => this.storeUser());
+            this.setState({ user }, () => this.storeUser(true));
         } else {
             return res.msg;
         }
@@ -211,7 +216,7 @@ class AuthenticationContextProvider extends Component {
         if (res.success) {
             const { dividends } = res;
             user.dividends = dividends;
-            this.setState({ user }, () => this.storeUser());
+            this.setState({ user }, () => this.storeUser(false));
         } else {
             return res.msg;
         }
@@ -222,6 +227,7 @@ class AuthenticationContextProvider extends Component {
             <AuthenticationContext.Provider
                 value={{
                     ...this.state,
+                    getStockData: this.getStockData,
                     register: this.register,
                     login: this.login,
                     logout: this.logout,

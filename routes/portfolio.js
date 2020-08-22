@@ -138,6 +138,7 @@ router.post('/edit_stock/', (req, res) => {
                 if (stock.ticker === ticker) {
                     stock.quantity = quantity;
                 }
+                return stock;
             })
             portfolio.save()
                 .then(portfolio => {
@@ -160,10 +161,12 @@ router.post('/delete_stock/', (req, res) => {
             }
 
             portfolio.stocks = portfolio.stocks.filter(stock => stock.ticker !== ticker)
+
             portfolio.save()
                 .then(portfolio => {
                     res.json({
                         portfolio,
+                        ticker,
                         success: true,
                     });
                 })

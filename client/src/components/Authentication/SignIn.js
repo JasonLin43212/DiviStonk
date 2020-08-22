@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 import InputField from '../Utils/InputField';
