@@ -15,7 +15,7 @@ class DeleteModal extends Component {
         const { stock } = this.props;
         return (
             <Modal
-                title={`Are you sure you want to delete the ${stock.ticker} stock?`}
+                title={`Delete ${stock.ticker} stock?`}
                 close={this.props.close}
             >
                 <div className='delete-buttons-div'>

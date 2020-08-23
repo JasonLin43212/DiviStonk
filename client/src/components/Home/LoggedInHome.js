@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 import PortfolioModal from './PortfolioModal';
+import DeleteModal from './DeleteModal';
 
 
 class LoggedInHome extends Component {
@@ -11,12 +12,21 @@ class LoggedInHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            portfolioModal: false,
+            currentModal: '',
+            editingPortfolio: null,
         };
     }
 
     toggleAddPortfolio = () => {
-        this.setState({ portfolioModal: !this.state.portfolioModal });
+        this.setState({ currentModal: "add" });
+    }
+
+    openDeleteModal = (editingPortfolio) => {
+        this.setState({ editingPortfolio, currentModal: "delete" });
+    }
+
+    closeModal = () => {
+        this.setState({ editingPortfolio: null,  currentModal: ""});
     }
 
     render() {
@@ -25,9 +35,16 @@ class LoggedInHome extends Component {
         return (
             <div className="logged-in">
                 {
-                    this.state.portfolioModal &&
+                    this.state.currentModal === "add" &&
                      <PortfolioModal
-                        close={this.toggleAddPortfolio}
+                        close={this.closeModal}
+                     />
+                }
+                {
+                    this.state.currentModal === "delete" &&
+                     <DeleteModal
+                        portfolio={this.state.editingPortfolio}
+                        close={this.closeModal}
                      />
                 }
                 <div className="in-header">Good Morning, {user.name}!</div>
@@ -47,6 +64,7 @@ class LoggedInHome extends Component {
                         <tr className="table-header-row">
                             <th>Name</th>
                             <th>Total Value</th>
+                            <th></th>
                         </tr>
                         {user.portfolios.map((portfolio, k) => {
                             let totalValue = "Getting Total Value...";
@@ -65,6 +83,14 @@ class LoggedInHome extends Component {
                                         </Link>
                                     </td>
                                     <td>{totalValue}</td>
+                                    <td>
+                                        <button
+                                            onClick={() => this.openDeleteModal(portfolio)}
+                                            className="table-button"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
                             );
                         })}
