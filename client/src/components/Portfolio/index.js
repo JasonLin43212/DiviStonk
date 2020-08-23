@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import QuantityModal from './QuantityModal';
 import DeleteModal from './DeleteModal';
 
+import './Portfolio.css';
 
 import { convertDateToWord, formatPrice } from '../Utils';
 
@@ -71,9 +72,11 @@ class Portfolio extends Component {
                 <div className="in-header">{portfolio.name} Portfolio</div>
                 <table>
                     <tbody>
-                        <tr className="table-header-row">
+                        <tr className="table-header-row table-header-portfolio">
                             <th>Ticker</th>
                             <th>Quantity</th>
+                            <th>Dividend Rate</th>
+                            <th>Dividend Yield</th>
                             <th>Price Per Share</th>
                             <th>Total Price</th>
                             <th>Ex-Dividend Date</th>
@@ -86,30 +89,48 @@ class Portfolio extends Component {
                             let totalPrice = stockData
                                 ? price * stock.quantity
                                 : 'Loading...';
+                            let divRate = stockData
+                                ? stockData[stock.ticker].dividendRate
+                                : 'Loading...';
+                            let divYield = stockData
+                                ? stockData[stock.ticker].dividendYield
+                                : 'Loading...';
                             const exDate = stockData
                                 ? convertDateToWord(stockData[stock.ticker].exDividendDate)
                                 : 'Loading...';
                             if (price !== 'Loading...') {
-                                price = formatPrice(price);
+                                price = formatPrice(price, "Price not found.");
                             }
                             if (totalPrice !== 'Loading...') {
-                                totalPrice =  formatPrice(totalPrice);
+                                totalPrice = formatPrice(totalPrice, "Price not found.");
+                            }
+                            if (divRate !== 'Loading...') {
+                                divRate = formatPrice(divRate, "N/A 😞");
+                            }
+                            if (divYield !== 'Loading...') {
+                                if (divYield) {
+                                    divYield = `${divYield * 100}%`;
+                                } else {
+                                    divYield = "N/A 😞";
+                                }
                             }
                             return (
-                                <tr className="table-data-row" key={k}>
+                                <tr className="table-data-row table-data-portfolio" key={k}>
                                     <td>{stock.ticker}</td>
                                     <td onClick={() => this.openQuantityModal(stock)}>
                                         <div className='table-clickable'>
                                             {stock.quantity}
                                         </div>
                                     </td>
+                                    <td>{divRate}</td>
+                                    <td>{divYield}</td>
                                     <td>{price}</td>
                                     <td>{totalPrice}</td>
                                     <td>{exDate}</td>
                                     <td>
                                         <button
                                             onClick={() => this.openDeleteModal(stock)}
-                                            className="table-button"
+                                            className="table-button portfolio-delete"
                                         >
                                             Delete
                                         </button>

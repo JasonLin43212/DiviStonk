@@ -1,3 +1,11 @@
-.delete-buttons {
-    display: flex;
+.table-header-portfolio th{
+    font-size: 22px !important;
+}
+
+.table-data-portfolio td{
+    font-size: 20px !important;
+}
+
+.portfolio-delete {
+    font-size: 20px !important;
 }

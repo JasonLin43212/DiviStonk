@@ -8,10 +8,13 @@ export const convertDateToWord = (date) => {
         const year = dateObj.getFullYear();
         return `${months[month]} ${day}, ${year}`;
     }
-    return "Date Not Found";
+    return "N/A 😞";
 };
 
-export const formatPrice = raw_price => {
+export const formatPrice = (raw_price, err) => {
+    if (!raw_price) {
+        return err;
+    }
     const roundedPrice = `${Math.round(raw_price * 100) / 100}`;
     let [dollar, cents] = roundedPrice.split(".");
     let newDollar = '';
