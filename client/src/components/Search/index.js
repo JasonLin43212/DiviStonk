@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { postData } from '../../utils.js';
 
+import SearchStock from './SearchStock';
+
+import './Search.css';
+
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 class Search extends Component {
@@ -11,8 +15,6 @@ class Search extends Component {
         this.state = {
             ticker: '',
             info: null,
-            portfolio_id: '',
-            quantity: '1',
             error: '',
         }
     }
@@ -27,7 +29,8 @@ class Search extends Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
-    getStockInfo = async () => {
+    getStockInfo = async (e) => {
+        e.preventDefault();
         const body = { tickers: [this.state.ticker]};
         const res = await postData('/api/dividend', body);
         this.setState({ info: res });
@@ -42,53 +45,27 @@ class Search extends Component {
     }
 
     render() {
+        let stockResults = this.state.info
+            ? this.state.info.results.map(stock => (
+                <SearchStock key={1} stock={stock}/>
+            ))
+            : '';
         return (
             <div className="logged-in">
-                <input type='text' name='ticker' onChange={this.handleInput}/>
-                <button onClick={this.getStockInfo}>
-                    Get Stock Info
-                </button>
-                {
-                    this.state.info &&
-                    <div>
-                        {this.state.info.results.map(stockInfo => (
-                            <div key={stockInfo.symbol}>
-                                <h2>{stockInfo.longName} ({stockInfo.symbol})</h2>
-                                <div>Dividend Rate: ${stockInfo.dividendRate}</div>
-                                <div>Dividend Yield: {stockInfo.dividendYield}</div>
-                                <div>Ex-Dividend Date: {stockInfo.exDividendDate}</div>
-                                <div>Five Year Average Dividend Yield: {stockInfo.fiveYearAvgDividendYield}</div>
-                                {
-                                    this.context.user &&
-                                    <div>
-                                        Add Stock to Portfolio
-                                        <select name='portfolio_id' onChange={this.handleInput}>
-                                            {this.context.user.portfolios.map((portfolio, k) => (
-                                                <option key={k} value={portfolio._id}>
-                                                    {portfolio.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <div>
-                                            Quantity:
-                                            <input
-                                                type="number"
-                                                name="quantity"
-                                                onChange={this.handleInput}
-                                                min="1"
-                                                value={this.state.quantity}
-                                            />
-                                            <button onClick={() => this.addStock(stockInfo.symbol)}>
-                                                Add Stock To Portfolio
-                                            </button>
-                                            <div>{this.state.error}</div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        ))}
-                    </div>
-                }
+                <div className="in-header">
+                    Search for Stocks
+                </div>
+                <form className="search-form" onSubmit={this.getStockInfo}>
+                    <label className="search-label">Stock Ticker:</label>
+                    <input
+                        className="search-input"
+                        type="text"
+                        name="ticker"
+                        onChange={this.handleInput}
+                    />
+                    <input type="submit" className="dark-btn search-btn" value="Search"/>
+                </form>
+                {stockResults}
             </div>
         );
     }

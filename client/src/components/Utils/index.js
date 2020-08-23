@@ -8,7 +8,7 @@ export const convertDateToWord = (date) => {
         const year = dateObj.getFullYear();
         return `${months[month]} ${day}, ${year}`;
     }
-    return "N/A 😞";
+    return "N/A";
 };
 
 export const formatPrice = (raw_price, err) => {

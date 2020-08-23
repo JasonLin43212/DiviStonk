@@ -105,13 +105,13 @@ class Portfolio extends Component {
                                 totalPrice = formatPrice(totalPrice, "Price not found.");
                             }
                             if (divRate !== 'Loading...') {
-                                divRate = formatPrice(divRate, "N/A 😞");
+                                divRate = formatPrice(divRate, "N/A");
                             }
                             if (divYield !== 'Loading...') {
                                 if (divYield) {
                                     divYield = `${divYield * 100}%`;
                                 } else {
-                                    divYield = "N/A 😞";
+                                    divYield = "N/A";
                                 }
                             }
                             return (

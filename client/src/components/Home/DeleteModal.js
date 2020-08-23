@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 import Modal from '../Utils/Modal';
-import InputField from '../Utils/InputField';
 
 class DeleteModal extends Component {
     static contextType = AuthenticationContext;

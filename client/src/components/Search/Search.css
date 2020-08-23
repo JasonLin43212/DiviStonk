@@ -1,0 +1,55 @@
+.search-form {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.search-label {
+    font-size: 25px;
+    font-family: var(--general-font);
+    margin-right: 10px;
+}
+
+.search-input {
+    width: 40%;
+    margin-right: 10px;
+    font-size: 22px;
+    font-family: var(--general-font);
+    padding: 0 10px;
+}
+
+.search-btn {
+    font-size: 25px;
+    width: 10%;
+    font-family: var(--general-font);
+}
+
+/* Search Results */
+.stock-result {
+    width: 100%;
+    border: 1px solid black;
+    padding-bottom: 10px;
+}
+
+.stock-title {
+    background: #D8D8D8;
+    padding: 10px 25px;
+    font-size: 30px;
+    font-family: var(--general-font);
+    font-weight: 600;
+    border-bottom: 1px solid black;
+}
+
+.stock-info {
+    padding: 10px 25px;
+    font-size: 25px;
+    font-family: var(--general-font);
+    font-weight: 500;
+}
+
+.stock-btn {
+    font-size: 25px;
+    font-family: var(--general-font);
+    font-weight: 500;
+    margin: 10px 25px;
+    padding: 5px 20px;
+}
