@@ -22,14 +22,12 @@ class PortfolioModal extends Component {
 
     addPortfolio = async (e) => {
         e.preventDefault();
-        const res = this.context.addPortfolio(this.state.portfolio_name);
-        res.then(msg => {
-            if (msg) {
-                this.setState({ error: msg });
-            } else {
-                this.setState({ error: '' }, () => this.props.close());
-            }
-        });
+        const msg = await this.context.addPortfolio(this.state.portfolio_name);
+        if (msg) {
+            this.setState({ error: msg });
+         } else {
+             this.setState({ error: '' }, () => this.props.close());
+         }
     }
 
     render() {

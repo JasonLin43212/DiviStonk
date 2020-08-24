@@ -54,7 +54,7 @@ class AddModal extends Component {
 
     render() {
         const { stock } = this.props;
-        const { user, stockInfo } = this.context;
+        const { user } = this.context;
 
         const alreadyHaveStock = this.state.portfolio
             ? this.state.portfolio.stocks.some(a_stock => a_stock.ticker === stock.symbol)
@@ -64,45 +64,53 @@ class AddModal extends Component {
             : '';
         return (
             <Modal title={`Add ${stock.symbol} Shares`} close={this.closeModal}>
-                <div className="input-label" style={{fontSize: "25px"}}>Portfolio:</div>
-                <div className="modal-inputs">
-                    <select
-                        className="input"
-                        name='portfolio'
-                        onChange={this.handlePortfolioChange}
-                        style={{fontSize: "25px"}}
-                    >
-                        {this.context.user.portfolios.map((portfolio, k) => (
-                            <option key={k} value={portfolio._id}>
-                                {portfolio.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+
                 {
-                    alreadyHaveStock
-                    ? <div className="modal-error">
-                        You already have {stock.symbol} stock in this portfolio.
-                    </div>
-                    : <form onSubmit={this.addStock}>
+                    user.portfolios && user.portfolios.length > 0
+                    ? <>
+                        <div className="input-label" style={{fontSize: "25px"}}>Portfolio:</div>
                         <div className="modal-inputs">
-                            <InputField
-                                type="number"
-                                name="quantity"
-                                handleinput={this.handleInput}
-                                value={this.state.quantity}
-                                label="Quantity:"
-                                fontSize="25px"
-                            />
+                            <select
+                                className="input"
+                                name='portfolio'
+                                onChange={this.handlePortfolioChange}
+                                style={{fontSize: "25px"}}
+                            >
+                                {this.context.user.portfolios.map((portfolio, k) => (
+                                    <option key={k} value={portfolio._id}>
+                                        {portfolio.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
-                        <div className="modal-error">{this.state.error}</div>
+                        {
+                            alreadyHaveStock
+                            ? <div className="modal-error">
+                                You already have {stock.symbol} stock in this portfolio.
+                            </div>
+                            : <form onSubmit={this.addStock}>
+                                <div className="modal-inputs">
+                                    <InputField
+                                        type="number"
+                                        name="quantity"
+                                        handleinput={this.handleInput}
+                                        value={this.state.quantity}
+                                        label="Quantity:"
+                                        fontSize="25px"
+                                    />
+                                </div>
+                                <div className="modal-error">{this.state.error}</div>
 
-                        <button className="dark-btn portfolio-add" >
-                            Add Stock {portfolioAddon}
-                        </button>
-                    </form>
+                                <button className="dark-btn portfolio-add" >
+                                    Add Stock {portfolioAddon}
+                                </button>
+                            </form>
+                        }
+                    </>
+                    : <div className="no-portfolio">
+                        You do not have any portfolios. You can add one in the Home page.
+                    </div>
                 }
-
             </Modal>
         )
     }

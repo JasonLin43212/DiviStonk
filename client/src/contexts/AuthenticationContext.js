@@ -6,10 +6,17 @@ import { postData } from '../utils.js';
 export const AuthenticationContext = createContext();
 
 class AuthenticationContextProvider extends Component {
-    state = {
-        user: null,
-        stockData: null,
+    constructor(props) {
+        super(props);
+        const storedUser = JSON.parse(window.localStorage.getItem('user'));
+        let user = storedUser
+            ? storedUser : null;
+        this.state = {
+            user,
+            stockData: null,
+        }
     }
+
 
     getStockData = async () => {
         const stockTickers = new Set();
@@ -31,9 +38,8 @@ class AuthenticationContextProvider extends Component {
     }
 
     componentDidMount() {
-        const storedUser = JSON.parse(window.localStorage.getItem('user'));
-        if (!this.state.user && storedUser) {
-            this.setState({ user: storedUser }, () => this.getStockData());
+        if (this.state.user) {
+            this.getStockData();
         }
     }
 
@@ -85,7 +91,7 @@ class AuthenticationContextProvider extends Component {
         if (res.success) {
             const { portfolio } = res;
             user.portfolios.push(portfolio);
-            this.setState({ user }, () => this.storeUser(false));
+            this.setState({ user }, () => this.storeUser(true));
         } else {
             return res.msg;
         }

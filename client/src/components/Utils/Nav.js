@@ -9,7 +9,6 @@ const NAVLINKS = [
     { link: '/dividend', name: 'My Dividends'},
     { link: '/search', name: 'Search For Stocks'},
     { link: '/help', name: 'Help'},
-    // { link: '/portfolio', name: 'Home'},
 ];
 
 class Nav extends Component {

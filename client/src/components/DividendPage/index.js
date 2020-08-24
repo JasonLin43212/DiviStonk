@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 class DividendPage extends Component {
@@ -35,6 +37,9 @@ class DividendPage extends Component {
     }
 
     render() {
+        if (!this.context.user) {
+            return (<Redirect to='/'/>);
+        }
         return (
             <div>
                 <h1>Here are you dividends!</h1>

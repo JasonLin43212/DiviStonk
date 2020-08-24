@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import QuantityModal from './QuantityModal';
 import DeleteModal from './DeleteModal';
 
@@ -32,11 +34,14 @@ class Portfolio extends Component {
     }
 
     render() {
+        if (!this.context.user) {
+            return (<Redirect to='/'/>);
+        }
         const { stockData, user } = this.context
 
         const notFound = (
             <div className="logged-in">
-            <div className="in-header">Portfolio Not Found</div>
+                <div className="in-header">Portfolio Not Found</div>
             </div>
         );
         if (!user) {

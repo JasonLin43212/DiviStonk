@@ -17,28 +17,28 @@ const portfoliosFromId = (ids) => {
 router.post('/add/', (req, res) => {
     const { name, user_id } = req.body;
     if (name.trim() === '') {
-        res.json({ error: 'Please enter a name for your portfolio.', success: false });
+        return res.json({ error: 'Please enter a name for your portfolio.', success: false });
     }
-    Portfolio.findOne({ name })
-        .then(portfolio => {
-            if (portfolio) {
-                res.json({ error: 'A portfolio with that name already exists.', success: false });
+    User.findOne({ _id: user_id })
+        .then(user => {
+            if (!user) {
+                return res.json({ error: 'The user does not exist', success: false });
+            }
+
+            if (portfoliosFromId(user.portfolios).some(portfolio => portfolio.name === name)) {
+                return res.json({ error: 'The user already has a portfolio with this name.', success: false });
             }
 
             const newPortfolio = new Portfolio({ name });
             newPortfolio.save()
                 .then(new_portfolio => {
-                    User.findOne({ _id: user_id })
+                    user.portfolios.push(new_portfolio._id);
+                    user.save()
                         .then(user => {
-                            user.portfolios.push(new_portfolio._id);
-                            user.save()
-                                .then(user => {
-                                    res.json({
-                                        portfolio: new_portfolio,
-                                        success: true,
-                                    })
-                                })
-                                .catch(err => res.status(400).json({ error: err.message, success: false}));
+                            return res.json({
+                                portfolio: new_portfolio,
+                                success: true,
+                            })
                         })
                         .catch(err => res.status(400).json({ error: err.message, success: false}));
                 })

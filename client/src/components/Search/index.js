@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import { postData } from '../../utils.js';
 
 import SearchStock from './SearchStock';
@@ -71,6 +73,9 @@ class Search extends Component {
     }
 
     render() {
+        if (!this.context.user) {
+            return (<Redirect to='/'/>);
+        }
         let stockResults = this.state.info
             ? this.state.info.results.map((stock, k) => (
                 <SearchStock key={k} stock={stock} toggleAddModal={this.toggleAddModal}/>

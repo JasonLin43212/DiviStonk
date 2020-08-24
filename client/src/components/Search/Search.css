@@ -82,3 +82,10 @@
     margin: 10px 25px;
     padding: 5px 20px;
 }
+
+.no-portfolio {
+    font-size: 22px;
+    font-family: var(--general-font);
+    font-weight: 500;
+    padding-bottom: 20px;
+}
