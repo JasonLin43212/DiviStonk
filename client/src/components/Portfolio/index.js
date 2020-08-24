@@ -4,7 +4,7 @@ import DeleteModal from './DeleteModal';
 
 import './Portfolio.css';
 
-import { convertDateToWord, formatPrice } from '../Utils';
+import { convertDateToWord, formatPrice, formatPercentage } from '../Utils';
 
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
@@ -109,7 +109,7 @@ class Portfolio extends Component {
                             }
                             if (divYield !== 'Loading...') {
                                 if (divYield) {
-                                    divYield = `${divYield * 100}%`;
+                                    divYield = formatPercentage(divYield, "N/A");
                                 } else {
                                     divYield = "N/A";
                                 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { postData } from '../../utils.js';
 
 import SearchStock from './SearchStock';
+import AddModal from './AddModal';
 
 import './Search.css';
 
@@ -16,6 +17,8 @@ class Search extends Component {
             ticker: '',
             info: null,
             error: '',
+            addModal: false,
+            addingStock: null,
         }
     }
 
@@ -33,7 +36,11 @@ class Search extends Component {
         e.preventDefault();
         const body = { tickers: [this.state.ticker]};
         const res = await postData('/api/dividend', body);
-        this.setState({ info: res });
+        if (res.success) {
+            this.setState({ info: res, error: '' });
+        } else {
+            this.setState({ error: res.msg });
+        }
     };
 
     addStock = async (ticker) => {
@@ -44,17 +51,43 @@ class Search extends Component {
         }
     }
 
+    highDiv = async () => {
+        const body = { tickers: [
+            'UVV', 'BNS', 'CM', 'IP', 'BCE', 'STX', 'BMO', 'CMP', 'IBM',
+            'TRP', 'TD', 'BOH', 'SO', 'RY', 'EIX', 'DUK', 'VZ', 'ALE',
+            'SLF', 'SR', 'ED', 'CFR', 'MMM', 'BKH', 'ETR', 'O', 'MET',
+            'SJI', 'ABBV', 'FRT', 'MO',
+        ]};
+        const res = await postData('/api/dividend', body);
+        if (res.success) {
+            this.setState({ info: res, error: '' });
+        } else {
+            this.setState({ error: res.msg });
+        }
+    }
+
+    toggleAddModal = (addingStock) => {
+        this.setState({ addModal: !this.state.addModal, addingStock });
+    }
+
     render() {
         let stockResults = this.state.info
-            ? this.state.info.results.map(stock => (
-                <SearchStock key={1} stock={stock}/>
+            ? this.state.info.results.map((stock, k) => (
+                <SearchStock key={k} stock={stock} toggleAddModal={this.toggleAddModal}/>
             ))
             : '';
         return (
             <div className="logged-in">
+                {
+                    this.state.addModal &&
+                    <AddModal stock={this.state.addingStock} toggle={this.toggleAddModal}/>
+                }
                 <div className="in-header">
                     Search for Stocks
                 </div>
+                <button className="built-in-stock" onClick={this.highDiv}>
+                    High Dividend Stocks
+                </button>
                 <form className="search-form" onSubmit={this.getStockInfo}>
                     <label className="search-label">Stock Ticker:</label>
                     <input
@@ -65,6 +98,12 @@ class Search extends Component {
                     />
                     <input type="submit" className="dark-btn search-btn" value="Search"/>
                 </form>
+                {
+                    this.state.error &&
+                    <div className="search-error">
+                        {this.state.error}
+                    </div>
+                }
                 {stockResults}
             </div>
         );

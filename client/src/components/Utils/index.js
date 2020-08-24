@@ -39,3 +39,10 @@ export const formatPrice = (raw_price, err) => {
 
     return `$${newDollar}.${cents}`;
 };
+
+export const formatPercentage = (raw_pct, err) => {
+    if (!raw_pct) {
+        return err;
+    }
+    return `${Math.round(raw_pct * 10000) / 100}%`;
+}

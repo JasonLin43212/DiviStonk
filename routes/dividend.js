@@ -13,10 +13,16 @@ router.post("/", (req, res) => {
         symbols: req.body.tickers,
     }, function (err, quotes) {
         if (err) {
-            return res.status(400).json({ success: false, msg: err.message });
+            return res.json({ success: false, msg: 'The stock ticker you entered is invalid.' });
         }
         else {
-            const results = Object.keys(quotes).map(ticker => {
+            const tickers = Object.keys(quotes);
+            const results = [];
+            tickers.forEach(ticker => {
+                const tickerKeys = Object.keys(quotes[ticker]);
+                if (!tickerKeys.includes("price") || !tickerKeys.includes("summaryDetail")) {
+                    return;
+                }
                 const {
                     symbol,
                     longName,
@@ -28,7 +34,7 @@ router.post("/", (req, res) => {
                     exDividendDate,
                     fiveYearAvgDividendYield,
                 } = quotes[ticker].summaryDetail;
-                return {
+                results.push({
                     symbol,
                     longName,
                     dividendRate,
@@ -36,8 +42,11 @@ router.post("/", (req, res) => {
                     exDividendDate,
                     fiveYearAvgDividendYield,
                     regularMarketPrice,
-                }
+                });
             });
+            if (results.length == 0) {
+                return res.json({ success: false, msg: 'Not enough information found on the entered stock.' });
+            }
             return res.json({ results, success: true });
         }
     });

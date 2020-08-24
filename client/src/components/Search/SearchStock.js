@@ -1,26 +1,30 @@
 import React, { Component } from 'react';
+import { convertDateToWord, formatPrice, formatPercentage } from '../Utils';
 
 class SearchStock extends Component {
     render() {
         const { stock } = this.props;
+        const fiveAvg = stock.fiveYearAvgDividendYield
+            ? stock.fiveYearAvgDividendYield
+            : 'N/A';
         return (
             <div className="stock-result">
                 <div className="stock-title">
                     {stock.longName} ({stock.symbol})
                 </div>
                 <div className="stock-info">
-                    ‣ Dividend Rate: ${stock.dividendRate}
+                    ‣ Dividend Rate: {formatPrice(stock.dividendRate, 'N/A')}
                 </div>
                 <div className="stock-info">
-                    ‣ Dividend Yield: {stock.dividendYield}
+                    ‣ Dividend Yield: {formatPercentage(stock.dividendYield, 'N/A')}
                 </div>
                 <div className="stock-info">
-                    ‣ Ex-Dividend Date: {stock.exDividendDate}
+                    ‣ Ex-Dividend Date: {convertDateToWord(stock.exDividendDate)}
                 </div>
                 <div className="stock-info">
-                    ‣ Five Year Average Dividend Yield: {stock.fiveYearAvgDividendYield}
+                    ‣ Five Year Average Dividend Yield: {fiveAvg}%
                 </div>
-                <button className="stock-btn dark-btn">
+                <button onClick={() => this.props.toggleAddModal(stock)} className="stock-btn dark-btn">
                     Add Stock
                 </button>
             </div>
@@ -29,30 +33,3 @@ class SearchStock extends Component {
 }
 
 export default SearchStock;
-
-/*
-// <div>
-//     Add Stock to Portfolio
-//     <select name='portfolio_id' onChange={this.handleInput}>
-//         {this.context.user.portfolios.map((portfolio, k) => (
-//             <option key={k} value={portfolio._id}>
-//                 {portfolio.name}
-//             </option>
-//         ))}
-//     </select>
-//     <div>
-//         Quantity:
-//         <input
-//             type="number"
-//             name="quantity"
-//             onChange={this.handleInput}
-//             min="1"
-//             value={this.state.quantity}
-//         />
-//         <button onClick={() => this.addStock(stockInfo.symbol)}>
-//             Add Stock To Portfolio
-//         </button>
-//         <div>{this.state.error}</div>
-//     </div>
-// </div>
-*/
