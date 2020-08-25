@@ -23,8 +23,10 @@ class Nav extends Component {
         if (stockData) {
             for (let portfolio of this.context.user.portfolios) {
                 for (let stock of portfolio.stocks) {
-                    totalStockValue += stock.quantity * stockData[stock.ticker].regularMarketPrice;
-                    totalDividendIncome += stock.quantity * stockData[stock.ticker].dividendRate;
+                    if (stockData.hasOwnProperty(stock.ticker)) {
+                        totalStockValue += stock.quantity * stockData[stock.ticker].regularMarketPrice;
+                        totalDividendIncome += stock.quantity * stockData[stock.ticker].dividendRate;
+                    }
                 }
             }
         }
@@ -51,7 +53,7 @@ class Nav extends Component {
         }
         const currentPath = this.props.location.pathname;
         const summaryDetails = this.getSummaryDetails();
-        
+
         return (
             <div className="navbar">
                 <h1 className="navbar-title">DiviStonk</h1>
