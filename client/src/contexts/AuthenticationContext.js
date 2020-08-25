@@ -192,7 +192,7 @@ class AuthenticationContextProvider extends Component {
             return "Please input a date.";
         }
         if (!dividend_per_stock || dividend_per_stock <= 0) {
-            return "Please input a valid dividend per stock value.";
+            return "Please input a valid amount per share value.";
         }
         const { user } = this.state;
         const res = await postData('/api/dividend/add', {

@@ -14,7 +14,7 @@ class Modal extends Component {
     render() {
         return (
             <div className="darken">
-                <div className="modal">
+                <div className="modal" style={this.props.modalstyles}>
                     <div className="modal-header">
                         <div className="modal-title">{this.props.title}</div>
                         <div className="close-div">

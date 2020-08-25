@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Modal from '../Utils/Modal';
+import InputField from '../Utils/InputField';
 
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
@@ -13,38 +14,68 @@ class AddDividendModal extends Component{
         this.state = {
             ticker: '',
             date: '',
-            quantity: 0,
+            quantity: 1,
             dividend_per_stock: 0,
             error: '',
         };
     }
 
+    addDividend = async (e) => {
+        e.preventDefault();
+        const { ticker, date, quantity, dividend_per_stock } = this.state;
+        const msg = await this.context.addDividend(ticker, quantity, date, dividend_per_stock);
+        if (msg) {
+            this.setState({ error: msg });
+        } else {
+            this.setState({ error: '' });
+            this.props.close();
+        }
+    }
+
+    handleInput = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
     render() {
         return (
-            <Modal title='Add Dividends'>
-                <div>{ this.state.error }</div>
-                Add Dividends!<br/>
-                Ticker: <input type="text" name="ticker" onChange={this.handleInput}/>
-                Quantity: <input type="number" name="quantity" onChange={this.handleInput}/>
-                Date: <input type="date" name="date" onChange={this.handleInput}/>
-                Dividend Earned Per Stock: <input type="number" name="dividend_per_stock" onChange={this.handleInput}/>
-                <button onClick={() => this.addDividend()}>
-                    Add Dividend
-                </button>
-                {
-                    this.context.user &&
-                    this.context.user.dividends.map(dividend => (
-                        <div key={dividend.id}>
-                            {dividend.ticker}
-                            {dividend.quantity}
-                            {dividend.dividend_per_stock}
-                            &nbsp;
-                            <span onClick={() => this.deleteDividend(dividend.id)}>
-                                x
-                            </span>
-                        </div>
-                    ))
-                }
+            <Modal title='Add Dividends' modalstyles={{ top: '10%' }} close={this.props.close}>
+                <form onSubmit={this.addDividend}>
+                    <div className="modal-inputs">
+                        <InputField
+                            type="text"
+                            name="ticker"
+                            handleinput={this.handleInput}
+                            label="Stock Ticker:"
+                            fontSize="18px"
+                        />
+                        <InputField
+                            type="number"
+                            name="quantity"
+                            handleinput={this.handleInput}
+                            label="Number of Shares:"
+                            fontSize="18px"
+                            value={this.state.quantity}
+                            step="1"
+                        />
+                        <InputField
+                            type="date"
+                            name="date"
+                            handleinput={this.handleInput}
+                            label="Date Recieved:"
+                            fontSize="18px"
+                        />
+                        <InputField
+                            type="number"
+                            name="dividend_per_stock"
+                            handleinput={this.handleInput}
+                            label="Amount Per Share:"
+                            fontSize="18px"
+                            step="any"
+                        />
+                        <div className="modal-error">{ this.state.error }</div>
+                        <input className="dark-btn portfolio-add" type="submit" value="Add Dividend" />
+                    </div>
+                </form>
             </Modal>
         )
     }

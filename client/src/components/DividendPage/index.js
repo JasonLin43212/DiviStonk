@@ -88,7 +88,7 @@ class DividendPage extends Component {
                     <div className="dividend-add-div">
                         <button
                             className="light-btn-2 dividend-add"
-                            onClick={this.toggleAddDividend}
+                            onClick={this.toggleDividendAdd}
                         >
                             + Add Dividend
                         </button>
@@ -107,7 +107,7 @@ class DividendPage extends Component {
                         ))
                     }
                 </div>
-                <DivView />
+                <DivView deleteModal={this.toggleDividendDelete} close={this.closeModal}/>
             </div>
         );
     }
