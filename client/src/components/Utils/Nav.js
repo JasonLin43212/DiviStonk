@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Nav.css';
 
+import { formatPrice, formatPercentage } from './index';
+
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
 const NAVLINKS = [
@@ -14,11 +16,41 @@ const NAVLINKS = [
 class Nav extends Component {
     static contextType = AuthenticationContext;
 
+    getSummaryDetails = () => {
+        const { stockData } = this.context;
+        let totalStockValue = 0;
+        let totalDividendIncome = 0;
+        if (stockData) {
+            for (let portfolio of this.context.user.portfolios) {
+                for (let stock of portfolio.stocks) {
+                    totalStockValue += stock.quantity * stockData[stock.ticker].regularMarketPrice;
+                    totalDividendIncome += stock.quantity * stockData[stock.ticker].dividendRate;
+                }
+            }
+        }
+
+        return [
+            {
+                title: "Total Stock Value:",
+                value: formatPrice(totalStockValue, "N/A")
+            },
+            {
+                title: "Dividend Income:",
+                value: formatPrice(totalDividendIncome, "N/A")
+            },
+            {
+                title: "Dividend Yield:",
+                value: formatPercentage(totalDividendIncome / totalStockValue, "N/A")
+            }
+        ];
+    }
+
     render() {
         if (!this.context.user) {
             return (<></>);
         }
         const currentPath = this.props.location.pathname;
+        const summaryDetails = this.getSummaryDetails();
         return (
             <div className="navbar">
                 <h1 className="navbar-title">DiviStonk</h1>
@@ -31,6 +63,19 @@ class Nav extends Component {
                         {navlink.name}
                     </Link>
                 ))}
+                <div className="nav-summary">
+                    <h1 className="navbar-summary">Summary</h1>
+                    {summaryDetails.map((detail,k) => (
+                        <div key={k}>
+                            <div className="nav-detail-title">{detail.title}</div>
+                            {
+                                this.context.stockData
+                                ? <div className="nav-detail-value">{detail.value}</div>
+                                : <div className="nav-detail-value">Loading...</div>
+                            }
+                        </div>
+                    ))}
+                </div>
                 <div className="navlink" onClick={this.context.logout}>Logout</div>
             </div>
         );

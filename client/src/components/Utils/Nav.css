@@ -40,3 +40,32 @@
     font-weight: 400;
     font-size: 45px;
 }
+
+/* Nav Summary */
+.nav-summary {
+    margin: 30px 0 30px;
+}
+
+.navbar-summary {
+    font-family: var(--header-font);
+    color: black;
+    font-size: 38px;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.nav-detail-title {
+    font-family: var(--general-font);
+    color: black;
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.nav-detail-value {
+    font-family: var(--general-font);
+    color: black;
+    font-size: 18px;
+    margin-left: 1.5em;
+    margin-bottom: 20px;
+}

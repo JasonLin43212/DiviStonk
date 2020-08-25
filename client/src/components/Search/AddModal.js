@@ -27,7 +27,7 @@ class AddModal extends Component {
     addStock = e => {
         e.preventDefault();
         const { portfolio, quantity } = this.state;
-        const res = this.context.addStock(portfolio._id, this.props.stock.symbol, quantity);
+        const res = this.context.addStock(portfolio._id, this.props.stock.symbol, parseInt(quantity));
         res.then(msg => {
             if (msg) {
                 this.setState({ error: msg });
