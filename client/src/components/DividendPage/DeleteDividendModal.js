@@ -9,7 +9,7 @@ class DeleteDividendModal extends Component{
     static contextType = AuthenticationContext;
 
     deleteDividend = async () => {
-        const msg = await this.context.deleteDividend(this.props.dividend.id);
+        await this.context.deleteDividend(this.props.dividend.id);
         this.props.close();
     }
 

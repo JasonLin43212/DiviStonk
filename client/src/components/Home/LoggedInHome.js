@@ -29,9 +29,24 @@ class LoggedInHome extends Component {
         this.setState({ editingPortfolio: null,  currentModal: ""});
     }
 
+
     render() {
         const { user } = this.context;
         const stockData = this.context.stockData ? this.context.stockData : null;
+
+        const timeOfDay = new Date(Date.now());
+        const hour = timeOfDay.getHours();
+
+        let daySection = "Morning";
+        if (hour < 6 || hour >= 20) {
+            daySection = "Night";
+        } else if (hour >= 12 && hour < 17) {
+            daySection = "Afternoon";
+        } else if (hour >= 17 && hour < 20) {
+            daySection = "Evening";
+        }
+
+
         return (
             <div className="logged-in">
                 {
@@ -47,7 +62,7 @@ class LoggedInHome extends Component {
                         close={this.closeModal}
                      />
                 }
-                <div className="in-header">Good Morning, {user.name}!</div>
+                <div className="in-header">Good {daySection}, {user.name}!</div>
                 <div className="table-title-div">
                     <div className="table-title">Portfolios</div>
                     <div className="table-add-div">

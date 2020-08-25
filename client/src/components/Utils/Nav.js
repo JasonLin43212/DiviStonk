@@ -51,6 +51,7 @@ class Nav extends Component {
         }
         const currentPath = this.props.location.pathname;
         const summaryDetails = this.getSummaryDetails();
+        
         return (
             <div className="navbar">
                 <h1 className="navbar-title">DiviStonk</h1>
