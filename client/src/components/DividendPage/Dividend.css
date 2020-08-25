@@ -1,0 +1,46 @@
+/* Header */
+.dividend-add {
+    font-size: 25px;
+    font-weight: 500;
+    padding: 5px 15px;
+}
+
+.dividend-add-div {
+    margin-left: auto;
+}
+
+/* Div Nav */
+.dividend-nav {
+
+}
+
+.div-nav-btn {
+    font-size: 22px;
+    font-family: var(--general-font);
+    font-weight: 500;
+    padding: 5px 15px;
+    background: white;
+    border: 1px solid black;
+    border-left: none;
+}
+
+.div-nav-btn:hover {
+    background: var(--table-secondary);
+    transition: 0.4s;
+}
+
+.div-nav-btn:focus {
+    outline: none;
+}
+
+.div-nav-btn:first-child {
+    border-left: 1px solid black !important;
+}
+
+.div-nav-active {
+    background: var(--project-background);
+}
+
+.div-nav-active:hover {
+    background: var(--project-background);
+}

@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
+import AddDividendModal from './AddDividendModal';
+import DeleteDividendModal from './DeleteDividendModal';
+
+import SummaryView from './SummaryView';
+import TableView from './TableView';
+import GraphView from './GraphView';
+
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
+
+import './Dividend.css';
+
+const dividendViews = {
+    summary: { display: 'Summary View', component: SummaryView },
+    table: { display: 'Table View', component: TableView },
+    graph: { display: 'Graph View', component: GraphView },
+};
 
 class DividendPage extends Component {
     static contextType = AuthenticationContext;
@@ -9,12 +24,26 @@ class DividendPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ticker: '',
-            date: '',
-            quantity: 0,
-            dividend_per_stock: 0,
-            error: '',
+            dividendModal: '',
+            view: 'table',
+            editingDividend: null,
         };
+    }
+
+    changeView = (view) => {
+        this.setState({ view });
+    }
+
+    toggleDividendAdd = () => {
+        this.setState({ dividendModal: 'add' });
+    }
+
+    toggleDividendDelete = (editingDividend) => {
+        this.setState({ dividendModal: 'delete', editingDividend });
+    }
+
+    closeModal = () => {
+        this.setState({ dividendModal: '', editingDividend: null });
     }
 
     addDividend = async () => {
@@ -40,32 +69,45 @@ class DividendPage extends Component {
         if (!this.context.user) {
             return (<Redirect to='/'/>);
         }
+        const DivView = dividendViews[this.state.view].component;
         return (
-            <div>
-                <h1>Here are you dividends!</h1>
-                <div>{ this.state.error }</div>
-                Add Dividends!<br/>
-                Ticker: <input type="text" name="ticker" onChange={this.handleInput}/>
-                Quantity: <input type="number" name="quantity" onChange={this.handleInput}/>
-                Date: <input type="date" name="date" onChange={this.handleInput}/>
-                Dividend Earned Per Stock: <input type="number" name="dividend_per_stock" onChange={this.handleInput}/>
-                <button onClick={() => this.addDividend()}>
-                    Add Dividend
-                </button>
+            <div className="logged-in">
                 {
-                    this.context.user &&
-                    this.context.user.dividends.map(dividend => (
-                        <div key={dividend.id}>
-                            {dividend.ticker}
-                            {dividend.quantity}
-                            {dividend.dividend_per_stock}
-                            &nbsp;
-                            <span onClick={() => this.deleteDividend(dividend.id)}>
-                                x
-                            </span>
-                        </div>
-                    ))
+                    this.state.dividendModal === 'add'
+                    && <AddDividendModal close={this.closeModal}/>
                 }
+                {
+                    this.state.dividendModal === 'delete'
+                    && <DeleteDividendModal
+                        close={this.closeModal}
+                        dividend={this.state.editingDividend}
+                    />
+                }
+                <div className="in-header" style={{ display: 'flex' }}>
+                    Dividends
+                    <div className="dividend-add-div">
+                        <button
+                            className="light-btn-2 dividend-add"
+                            onClick={this.toggleAddDividend}
+                        >
+                            + Add Dividend
+                        </button>
+                    </div>
+                </div>
+                <div className="dividend-nav">
+                    {
+                        Object.keys(dividendViews).map((view, k) => (
+                            <button
+                                key={k}
+                                className={`div-nav-btn ${this.state.view === view ? 'div-nav-active' : ''}`}
+                                onClick={() => this.changeView(view)}
+                            >
+                                {dividendViews[view].display}
+                            </button>
+                        ))
+                    }
+                </div>
+                <DivView />
             </div>
         );
     }
