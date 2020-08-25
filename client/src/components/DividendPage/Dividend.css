@@ -44,3 +44,24 @@
 .div-nav-active:hover {
     background: var(--project-background);
 }
+
+/* Div Summary */
+.div-summary-title {
+    font-size: 35px;
+    font-family: var(--header-font);
+    font-weight: 500;
+    margin: 0 0 10px;
+}
+
+.div-summary-value {
+    margin-left: 1.5em;
+    font-size: 25px;
+    font-family: var(--general-font);
+    margin-bottom: 30px;
+}
+
+.div-summary-loading {
+    font-size: 50px;
+    font-family: var(--general-font);
+    
+}

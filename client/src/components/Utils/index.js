@@ -3,8 +3,9 @@ const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 export const convertDateToWord = (date) => {
     if (date) {
         const dateObj = new Date(date);
+        dateObj.setDate(dateObj.getDate() + 1);
         const month = dateObj.getMonth();
-        const day = dateObj.getDate() + 1;
+        const day = dateObj.getDate();
         const year = dateObj.getFullYear();
         return `${months[month]} ${day}, ${year}`;
     }
