@@ -3,7 +3,7 @@ import './InputField.css'
 
 class InputField extends Component {
     render() {
-        const { type, name, handleinput, label, fontSize, value, step } = this.props;
+        const { type, name, handleinput, label, fontSize, value, step, min } = this.props;
         return (
             <div className="input-field">
                 <label style={{ fontSize }} className="input-label">{label}</label>
@@ -11,7 +11,7 @@ class InputField extends Component {
                     style={{ fontSize }}
                     className="input"
                     value={value}
-                    min="1"
+                    min={min}
                     type={type}
                     name={name}
                     onChange={handleinput}

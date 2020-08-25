@@ -54,6 +54,8 @@ class QuantityModal extends Component {
                             handleinput={this.handleInput}
                             label="New Quantity"
                             fontSize="25px"
+                            step="1"
+                            min="1"
                         />
                     </div>
                     <div className="modal-error">{this.state.error}</div>

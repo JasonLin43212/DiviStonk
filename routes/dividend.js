@@ -54,7 +54,6 @@ router.post("/", (req, res) => {
 
 router.post("/add/", (req, res) => {
     const { user_id, ticker, quantity, dividend_per_stock, date } = req.body;
-    console.log(user_id, ticker, quantity, dividend_per_stock, date);
     User.findOne({ _id: user_id })
         .then(user => {
             if (!user) {

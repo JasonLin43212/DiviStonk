@@ -97,6 +97,8 @@ class AddModal extends Component {
                                         value={this.state.quantity}
                                         label="Quantity:"
                                         fontSize="25px"
+                                        step="1"
+                                        min="1"
                                     />
                                 </div>
                                 <div className="modal-error">{this.state.error}</div>

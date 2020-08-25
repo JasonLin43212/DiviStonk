@@ -56,6 +56,7 @@ class AddDividendModal extends Component{
                             fontSize="18px"
                             value={this.state.quantity}
                             step="1"
+                            min="1"
                         />
                         <InputField
                             type="date"
@@ -71,6 +72,7 @@ class AddDividendModal extends Component{
                             label="Amount Per Share:"
                             fontSize="18px"
                             step="any"
+                            min="0"
                         />
                         <div className="modal-error">{ this.state.error }</div>
                         <input className="dark-btn portfolio-add" type="submit" value="Add Dividend" />
