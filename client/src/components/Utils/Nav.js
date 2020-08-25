@@ -24,8 +24,13 @@ class Nav extends Component {
             for (let portfolio of this.context.user.portfolios) {
                 for (let stock of portfolio.stocks) {
                     if (stockData.hasOwnProperty(stock.ticker)) {
-                        totalStockValue += stock.quantity * stockData[stock.ticker].regularMarketPrice;
-                        totalDividendIncome += stock.quantity * stockData[stock.ticker].dividendRate;
+                        const stockInfo = stockData[stock.ticker];
+                        if (stockInfo.hasOwnProperty("regularMarketPrice")) {
+                            totalStockValue += stock.quantity * stockData[stock.ticker].regularMarketPrice;
+                        }
+                        if (stockInfo.hasOwnProperty("dividendRate")) {
+                            totalDividendIncome += stock.quantity * stockData[stock.ticker].dividendRate;
+                        }
                     }
                 }
             }

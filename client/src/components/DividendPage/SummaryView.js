@@ -26,18 +26,25 @@ class SummaryView extends Component {
 
             for (let portfolio of this.context.user.portfolios) {
                 for (let stock of portfolio.stocks) {
-                    totalStockValue += stock.quantity * stockData[stock.ticker].regularMarketPrice;
-                    const annualStockDiv = stock.quantity * stockData[stock.ticker].dividendRate
-                    annualDividendIncome += annualStockDiv;
-
-                    if (annualStockDiv > highDiv.div) {
-                        highDiv = {
-                            ticker: stock.ticker,
-                            div: annualStockDiv,
-                            portfolio: portfolio.name,
-                            valid: true,
+                    if (stockData.hasOwnProperty(stock.ticker)) {
+                        const stockInfo = stockData[stock.ticker];
+                        if (stockInfo.hasOwnProperty("regularMarketPrice")) {
+                            totalStockValue += stock.quantity * stockData[stock.ticker].regularMarketPrice;
                         }
-                    }
+                        if (stockInfo.hasOwnProperty("dividendRate")) {
+                            const annualStockDiv = stock.quantity * stockData[stock.ticker].dividendRate
+                            annualDividendIncome += annualStockDiv;
+
+                            if (annualStockDiv > highDiv.div) {
+                                highDiv = {
+                                    ticker: stock.ticker,
+                                    div: annualStockDiv,
+                                    portfolio: portfolio.name,
+                                    valid: true,
+                                }
+                            }
+                        }
+                    }                    
                 }
             }
 
