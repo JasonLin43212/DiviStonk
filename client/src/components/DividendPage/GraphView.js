@@ -121,7 +121,7 @@ class GraphView extends Component {
             .padding(0.5);
         const yScale = d3.scaleLinear()
             .range([height, 0])
-            .domain([0, Math.max(...values) * 1.2]);
+            .domain([0, Math.max(Math.max(...values) * 1.2, 5)]);
 
         d3.selectAll("svg")
             .remove();
