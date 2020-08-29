@@ -63,5 +63,29 @@
 .div-summary-loading {
     font-size: 50px;
     font-family: var(--general-font);
-    
+
+}
+
+/* Graph View */
+.graph-title {
+    font-family: var(--header-font);
+    font-size: 30px;
+    text-align: center;
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+
+.graph-label {
+    display: inline-block !important;
+    margin: 0 10px 0 0;
+    font-size: 20px;
+}
+
+.graph-select {
+    font-size: 20px;
+    font-family: var(--general-font);
+    margin-right: 20px;
+    padding: 0 5px;
 }

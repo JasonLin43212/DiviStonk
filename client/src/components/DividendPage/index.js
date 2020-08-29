@@ -15,7 +15,7 @@ import './Dividend.css';
 const dividendViews = {
     summary: { display: 'Summary View', component: SummaryView },
     table: { display: 'Table View', component: TableView },
-    // graph: { display: 'Graph View', component: GraphView },
+    graph: { display: 'Graph View', component: GraphView },
 };
 
 class DividendPage extends Component {
@@ -25,7 +25,7 @@ class DividendPage extends Component {
         super(props);
         this.state = {
             dividendModal: '',
-            view: 'table',
+            view: 'graph',
             editingDividend: null,
         };
     }
