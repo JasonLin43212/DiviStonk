@@ -84,7 +84,13 @@ class Nav extends Component {
                         </div>
                     ))}
                 </div>
-                <div className="navlink" onClick={this.context.logout}>Logout</div>
+                <div
+                    className="navlink"
+                    onClick={this.context.logout}
+                    style={{marginBottom: "50px"}}
+                >
+                    Logout
+                </div>
             </div>
         );
     }
