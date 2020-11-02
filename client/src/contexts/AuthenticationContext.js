@@ -128,6 +128,7 @@ class AuthenticationContextProvider extends Component {
     }
 
     addStock = async (portfolio_id, ticker, quantity) => {
+        quantity = parseInt(quantity);
         if (!ticker) {
             return "Ticker not found.";
         }
@@ -146,6 +147,7 @@ class AuthenticationContextProvider extends Component {
     }
 
     editStock = async (portfolio_id, ticker, quantity) => {
+        quantity = parseInt(quantity);
         if (!ticker) {
             return "Ticker not found.";
         }
@@ -154,8 +156,7 @@ class AuthenticationContextProvider extends Component {
         }
         const res = await postData('/api/portfolio/edit_stock', { portfolio_id, ticker, quantity });
         if (res.success) {
-            const new_portfolio = res.portfolio;
-            console.log(new_portfolio, "edited stock!");
+            const new_portfolio = res.a_portfolio;
             const { user } = this.state;
             user.portfolios = user.portfolios.map(portfolio => portfolio._id === new_portfolio._id ? new_portfolio : portfolio);
             this.setState({ user }, () => this.storeUser(false));

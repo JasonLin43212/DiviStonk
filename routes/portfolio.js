@@ -140,10 +140,12 @@ router.post('/edit_stock/', (req, res) => {
                 }
                 return stock;
             })
+
+            portfolio.markModified('stocks');
             portfolio.save()
-                .then(portfolio => {
+                .then(a_portfolio => {
                     res.json({
-                        portfolio,
+                        a_portfolio,
                         success: true,
                     });
                 })
@@ -161,7 +163,7 @@ router.post('/delete_stock/', (req, res) => {
             }
 
             portfolio.stocks = portfolio.stocks.filter(stock => stock.ticker !== ticker)
-
+            portfolio.markModified('stocks'); // Need to stave stocks
             portfolio.save()
                 .then(portfolio => {
                     res.json({
