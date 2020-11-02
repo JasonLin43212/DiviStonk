@@ -5,7 +5,7 @@ class InputField extends Component {
     render() {
         const { type, name, handleinput, label, fontSize, value, step, min } = this.props;
         return (
-            <div className="input-field">
+            <div>
                 <label style={{ fontSize }} className="input-label">{label}</label>
                 <input
                     style={{ fontSize }}

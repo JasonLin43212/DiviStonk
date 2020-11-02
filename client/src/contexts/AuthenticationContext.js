@@ -17,6 +17,16 @@ class AuthenticationContextProvider extends Component {
         }
     }
 
+    getAllStockTickers = () => {
+        const stockTickers = new Set();
+        this.state.user.portfolios.forEach(portfolio => {
+            portfolio.stocks.forEach(stock => {
+                stockTickers.add({ticker: stock.ticker});
+            });
+        });
+        return stockTickers;
+    }
+
 
     getStockData = async () => {
         const stockTickers = new Set();
@@ -234,6 +244,7 @@ class AuthenticationContextProvider extends Component {
             <AuthenticationContext.Provider
                 value={{
                     ...this.state,
+                    getAllStockTickers: this.getAllStockTickers,
                     getStockData: this.getStockData,
                     register: this.register,
                     login: this.login,

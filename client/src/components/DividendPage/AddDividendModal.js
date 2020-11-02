@@ -41,13 +41,17 @@ class AddDividendModal extends Component{
             <Modal title='Add Dividends' modalstyles={{ top: '10%' }} close={this.props.close}>
                 <form onSubmit={this.addDividend}>
                     <div className="modal-inputs">
-                        <InputField
-                            type="text"
-                            name="ticker"
-                            handleinput={this.handleInput}
-                            label="Stock Ticker:"
-                            fontSize="18px"
-                        />
+                        <label style={{ fontSize: "18px" }} className="input-label">
+                            Stock Ticker:
+                        </label>
+                        <select className="ticker-select" name="ticker" onChange={this.handleInput}>
+                            <option value='' selected='selected' disabled>Select a stock ticker</option>
+                            {Array.from(this.context.getAllStockTickers()).map(stock => (
+                                <option key={stock.ticker} value={stock.ticker}>
+                                    {stock.ticker}
+                                </option>
+                            ))}
+                        </select>
                         <InputField
                             type="number"
                             name="quantity"
