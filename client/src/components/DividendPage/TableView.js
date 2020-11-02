@@ -10,6 +10,14 @@ class TableView extends Component {
 
     render() {
         const { user } = this.context;
+        const user_dividends = [...user.dividends];
+
+        user_dividends.sort((a, b) => {
+            const a_date = new Date(a.date);
+            const b_date = new Date(b.date);
+            return b_date - a_date;
+        });
+        console.log("sorted", user_dividends);
         return (
             <div>
                 <table>
@@ -22,7 +30,7 @@ class TableView extends Component {
                             <th>Total</th>
                             <th></th>
                         </tr>
-                        {user.dividends.map((dividend, k) => {
+                        {user_dividends.map((dividend, k) => {
                             return (
                                 <tr className="table-data-row" key={k}>
                                     <td>{convertDateToWord(dividend.date)}</td>
