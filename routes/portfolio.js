@@ -111,7 +111,7 @@ router.post('/add_stock/', (req, res) => {
                 res.json({ success: false, msg: "Portfolio already has this stock. Go to Home to change the amount you have." });
             }
 
-            const newStock = { quantity, ticker };
+            const newStock = { quantity, ticker, custom_dividend_rate: -1 };
 
             portfolio.stocks.push(newStock);
             portfolio.save()
@@ -127,7 +127,7 @@ router.post('/add_stock/', (req, res) => {
 });
 
 router.post('/edit_stock/', (req, res) => {
-    const { portfolio_id, ticker, quantity } = req.body;
+    const { portfolio_id, ticker, quantity, div_rate } = req.body;
     Portfolio.findOne({ _id: portfolio_id })
         .then(portfolio => {
             if (!portfolio) {
@@ -137,6 +137,7 @@ router.post('/edit_stock/', (req, res) => {
             portfolio.stocks = portfolio.stocks.map(stock => {
                 if (stock.ticker === ticker) {
                     stock.quantity = quantity;
+                    stock.custom_dividend_rate = div_rate;
                 }
                 return stock;
             })

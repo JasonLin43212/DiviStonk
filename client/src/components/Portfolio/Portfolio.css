@@ -9,3 +9,9 @@
 .portfolio-delete {
     font-size: 20px !important;
 }
+
+.note-text {
+    font-family: var(--general-font);
+    font-size: 15px;
+    padding-bottom: 20px;
+}

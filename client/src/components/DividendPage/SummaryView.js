@@ -43,8 +43,20 @@ class SummaryView extends Component {
                                     valid: true,
                                 }
                             }
+                        } else if (stock.custom_dividend_rate >= 0) {
+                            const annualStockDiv = stock.quantity * stock.custom_dividend_rate;
+                            annualDividendIncome += annualStockDiv;
+
+                            if (annualStockDiv > highDiv.div) {
+                                highDiv = {
+                                    ticker: stock.ticker,
+                                    div: annualStockDiv,
+                                    portfolio: portfolio.name,
+                                    valid: true,
+                                }
+                            }
                         }
-                    }                    
+                    }
                 }
             }
 

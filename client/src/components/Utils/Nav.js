@@ -30,6 +30,8 @@ class Nav extends Component {
                         }
                         if (stockInfo.hasOwnProperty("dividendRate")) {
                             totalDividendIncome += stock.quantity * stockData[stock.ticker].dividendRate;
+                        } else if (stock.custom_dividend_rate >= 0) {
+                            totalDividendIncome += stock.quantity * stock.custom_dividend_rate;
                         }
                     }
                 }

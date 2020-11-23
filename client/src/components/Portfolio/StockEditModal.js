@@ -4,27 +4,28 @@ import InputField from '../Utils/InputField';
 
 import { AuthenticationContext } from '../../contexts/AuthenticationContext';
 
-class QuantityModal extends Component {
+class StockEditModal extends Component {
     static contextType = AuthenticationContext;
 
     constructor(props) {
         super(props);
         this.state = {
             newQuantity: this.props.stock.quantity,
+            newDivRate: this.props.stock.custom_dividend_rate,
             error: '',
         };
     }
 
     editStock = async (e) => {
         e.preventDefault();
-        console.log('hi');
         const { portfolio, stock } = this.props;
-        const { newQuantity } = this.state;
-        if (newQuantity === this.props.stock.quantity) {
-            this.setState({ error: 'You did not change the quantity.' });
-            return
+        const { newQuantity, newDivRate } = this.state;
+        if (newQuantity === this.props.stock.quantity &&
+            newDivRate === this.props.stock.custom_dividend_rate) {
+            this.setState({ error: 'You did not change anything.' });
+            return;
         }
-        const res = this.context.editStock(portfolio._id, stock.ticker, newQuantity);
+        const res = this.context.editStock(portfolio._id, stock.ticker, newQuantity, newDivRate);
         res.then(msg => {
             if (msg) {
                 this.setState({ error: msg });
@@ -47,6 +48,11 @@ class QuantityModal extends Component {
             >
                 <form onSubmit={this.editStock}>
                     <div className='modal-inputs'>
+                        <div className='note-text'>
+                            Note: The custom dividend rate will only be used
+                            when there is no real time data. -1 means that
+                            no custom dividend rate is used.
+                        </div>
                         <InputField
                             type="number"
                             name="newQuantity"
@@ -57,13 +63,23 @@ class QuantityModal extends Component {
                             step="1"
                             min="1"
                         />
+                        <InputField
+                            type="number"
+                            name="newDivRate"
+                            value={this.state.newDivRate}
+                            handleinput={this.handleInput}
+                            label="Custom Dividend Rate"
+                            fontSize="25px"
+                            step="any"
+                            min="-1"
+                        />
                     </div>
                     <div className="modal-error">{this.state.error}</div>
-                    <input className="dark-btn portfolio-add" type="submit" value="Edit Stock Quantity" />
+                    <input className="dark-btn portfolio-add" type="submit" value="Edit Stock" />
                 </form>
             </Modal>
         );
     }
 }
 
-export default QuantityModal;
+export default StockEditModal;

@@ -45,7 +45,7 @@ class AddDividendModal extends Component{
                             Stock Ticker:
                         </label>
                         <select className="ticker-select" name="ticker" onChange={this.handleInput}>
-                            <option value='' selected='selected' disabled>Select a stock ticker</option>
+                            <option value='' selected disabled>Select a stock ticker</option>
                             {Array.from(this.context.getAllStockTickers()).map(stock => (
                                 <option key={stock.ticker} value={stock.ticker}>
                                     {stock.ticker}

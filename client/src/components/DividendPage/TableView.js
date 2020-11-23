@@ -17,7 +17,6 @@ class TableView extends Component {
             const b_date = new Date(b.date);
             return b_date - a_date;
         });
-        console.log("sorted", user_dividends);
         return (
             <div>
                 <table>

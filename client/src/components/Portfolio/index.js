@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import QuantityModal from './QuantityModal';
+import StockEditModal from './StockEditModal';
 import DeleteModal from './DeleteModal';
 
 import './Portfolio.css';
@@ -21,8 +21,8 @@ class Portfolio extends Component {
         };
     }
 
-    openQuantityModal = stock => {
-        this.setState({ currentModal: "quantity", editingStock: stock });
+    openEditModal = stock => {
+        this.setState({ currentModal: "edit", editingStock: stock });
     }
 
     openDeleteModal = stock => {
@@ -59,8 +59,8 @@ class Portfolio extends Component {
         return (
             <div className="logged-in">
                 {
-                    this.state.currentModal === "quantity" &&
-                    <QuantityModal
+                    this.state.currentModal === "edit" &&
+                    <StockEditModal
                         portfolio={portfolio}
                         stock={this.state.editingStock}
                         close={this.closeModal}
@@ -94,12 +94,24 @@ class Portfolio extends Component {
                             let totalPrice = stockData
                                 ? price * stock.quantity
                                 : 'Loading...';
-                            let divRate = stockData
-                                ? stockData[stock.ticker].dividendRate
-                                : 'Loading...';
-                            let divYield = stockData
-                                ? stockData[stock.ticker].dividendYield
-                                : 'Loading...';
+                            let divRate;
+                            if (stockData) {
+                                if (stockData[stock.ticker].dividendRate) {
+                                    divRate = stockData[stock.ticker].dividendRate;
+                                } else if (stock.custom_dividend_rate >= 0) {
+                                    divRate = stock.custom_dividend_rate;
+                                }
+                            } else {
+                                divRate = 'Loading...';
+                            }
+                            let divYield;
+                            if (stockData) {
+                                divYield = stockData[stock.ticker].dividendYield
+                                    ? stockData[stock.ticker].dividendYield
+                                    : divRate / price;
+                            } else {
+                                divYield = 'Loading...';
+                            }
                             const exDate = stockData
                                 ? convertDateToWord(stockData[stock.ticker].exDividendDate)
                                 : 'Loading...';
@@ -122,12 +134,16 @@ class Portfolio extends Component {
                             return (
                                 <tr className="table-data-row table-data-portfolio" key={k}>
                                     <td>{stock.ticker}</td>
-                                    <td onClick={() => this.openQuantityModal(stock)}>
+                                    <td onClick={() => this.openEditModal(stock)}>
                                         <div className='table-clickable'>
                                             {stock.quantity}
                                         </div>
                                     </td>
-                                    <td>{divRate}</td>
+                                    <td onClick={() => this.openEditModal(stock)}>
+                                        <div className='table-clickable'>
+                                            {divRate}
+                                        </div>
+                                    </td>
                                     <td>{divYield}</td>
                                     <td>{price}</td>
                                     <td>{totalPrice}</td>

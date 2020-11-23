@@ -156,15 +156,20 @@ class AuthenticationContextProvider extends Component {
         }
     }
 
-    editStock = async (portfolio_id, ticker, quantity) => {
+    editStock = async (portfolio_id, ticker, quantity, div_rate) => {
         quantity = parseInt(quantity);
+        div_rate = parseFloat(div_rate);
         if (!ticker) {
             return "Ticker not found.";
         }
         if (!quantity || quantity <= 0) {
             return "You cannot have 0 or less stocks.";
         }
-        const res = await postData('/api/portfolio/edit_stock', { portfolio_id, ticker, quantity });
+        if (!div_rate || (div_rate < 0 && div_rate !== -1)) {
+            return "Dividend rate must be -1 or a nonnegative number.";
+        }
+
+        const res = await postData('/api/portfolio/edit_stock', { portfolio_id, ticker, quantity, div_rate });
         if (res.success) {
             const new_portfolio = res.a_portfolio;
             const { user } = this.state;
@@ -223,7 +228,6 @@ class AuthenticationContextProvider extends Component {
     }
 
     deleteDividend = async(dividend_id) => {
-        console.log("deleteDividend context", dividend_id);
         const { user } = this.state;
         const res = await postData('/api/dividend/delete', {
             user_id: user.id,
