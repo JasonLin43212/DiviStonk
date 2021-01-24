@@ -15,6 +15,34 @@ const portfoliosFromId = async (ids) => {
     return portfolios;
 }
 
+router.post('/get_data', (req, res) => {
+    const _id = req.body.id;
+
+    if (!_id) {
+        res.status(400).json({ success: false, msg: "No id" });
+    }
+
+    User.findOne({ _id })
+        .then(user => {
+            const invalidMsg = "The id is invalid.";
+            if (!user) {
+                return res.status(400).json({ success: false, msg: invalidMsg });
+            }
+
+            const portfoliosPromise = portfoliosFromId(user.portfolios);
+            portfoliosPromise.then(portfolios => {
+                return res.json({
+                    portfolios,
+                    success: true,
+                    id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    dividends: user.dividends,
+                })
+            })
+        })
+        .catch(err => res.status(400).json({ error: err.message }));
+});
 
 router.post('/', (req, res) => {
     const { email, password } = req.body;

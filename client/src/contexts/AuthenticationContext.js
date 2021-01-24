@@ -47,16 +47,27 @@ class AuthenticationContextProvider extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if (this.state.user) {
-            this.getStockData();
+            await this.getUserData(this.state.user.id);
+            await this.getStockData();
         }
     }
 
-    storeUser = (getStock) => {
+    getUserData = async (id) => {
+        const res = await postData('/api/login/get_data', { id });
+        if (res.success) {
+            this.setState({ user: res }, () => this.storeUser(false));
+        }
+        else {
+            console.log(res.msg);
+        }
+    }
+
+    storeUser = async (getStock) => {
         window.localStorage.setItem('user', JSON.stringify(this.state.user));
         if (getStock) {
-            this.getStockData();
+            await this.getStockData();
         }
     }
 

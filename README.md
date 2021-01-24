@@ -1,3 +1,3 @@
 # DiviStonk
 
-Track stocks and dividends
+A web application used to keep track of stocks and dividends.
