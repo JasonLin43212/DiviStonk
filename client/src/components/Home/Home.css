@@ -1,27 +1,68 @@
+/* Logged Out Extra Small */
 .title {
-    font-family: var(--header-font);
-    font-size: 130px;
+    font-size: 60px;
     font-weight: 500;
     margin: 0;
+    font-family: var(--header-font);
 }
 
 .sub-title {
-    font-family: var(--general-font);
-    font-size: 35px;
+    font-size: 20px;
     font-weight: 400;
-    margin: 0 0 40px;
+    margin: 0 auto 40px;
+    font-family: var(--general-font);
 }
 
 .logged-out-button-div {
-    font-size: 30px;
-    font-family: var(--general-font);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .logged-out-buttons {
-    font-size: 40px;
-    margin: 0 30px;
+    font-size: 25px;
+    margin: 15px 0;
     padding: 5px 30px;
 }
+
+.or-text {
+    font-family: var(--general-font);
+    display: block;
+    text-align: center;
+    font-size: 20px;
+}
+
+/* Login Medium Screen */
+@media only screen and (min-width: 768px) {
+    .title {
+        font-size: 130px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .sub-title {
+        font-size: 35px;
+        font-weight: 400;
+        margin: 0 0 40px;
+    }
+
+    .logged-out-button-div {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .logged-out-buttons {
+        font-size: 40px;
+        margin: 0 30px;
+        padding: 5px 30px;
+    }
+
+    .or-text {
+        display: inline;
+        font-size: 30px;
+    }
+}
+
 
 /* Logged In */
 .table-title-div {

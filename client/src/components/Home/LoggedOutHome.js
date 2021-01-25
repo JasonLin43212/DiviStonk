@@ -21,7 +21,7 @@ class LoggedOutHome extends Component {
                             Sign In
                         </button>
                     </Link>
-                    or
+                    <div className='or-text'>or</div>
                     <Link to='/register'>
                         <button className='light-btn logged-out-buttons'>
                             Register

@@ -28,7 +28,7 @@ class Help extends Component {
                     Companies will post <u>ex-dividend dates</u>, <u>record dates</u>, and <u>pay dates</u>. One place
                     where you can find these dates is on <a href="https://www.nasdaq.com/market-activity/quotes/dividend-history" target="_blank" rel="noopener noreferrer">Nasdaq's Dividend History Page</a>. In
                     order for you to be paid dividends, you need to buy shares of a company before the ex-dividend date. If you buy the share on the ex-dividend date or
-                    after, you will not recieve the dividend payment until the next time they pay out dividends. The pay dates are typically one month
+                    after, you will not receive the dividend payment until the next time they pay out dividends. The pay dates are typically one month
                     after the record dates and the record dates after the ex-dividend dates excluding weekends.
                 </div>
 
