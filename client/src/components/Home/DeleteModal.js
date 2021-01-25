@@ -8,7 +8,7 @@ class DeleteModal extends Component {
     static contextType = AuthenticationContext;
 
     deletePortfolio = async () => {
-        this.context.deletePortfolio(this.props.portfolio._id);
+        await this.context.deletePortfolio(this.props.portfolio._id);
         this.props.close();
     }
 
