@@ -75,92 +75,95 @@ class Portfolio extends Component {
                     />
                 }
                 <div className="in-header">{portfolio.name} Portfolio</div>
-                <table>
-                    <tbody>
-                        <tr className="table-header-row table-header-portfolio">
-                            <th>Ticker</th>
-                            <th>Quantity</th>
-                            <th>Dividend Rate</th>
-                            <th>Dividend Yield</th>
-                            <th>Price Per Share</th>
-                            <th>Total Price</th>
-                            <th>Ex-Dividend Date</th>
-                            <th></th>
-                        </tr>
-                        {portfolio.stocks.map((stock, k) => {
-                            let price = stockData
-                                ? stockData[stock.ticker].regularMarketPrice
-                                : 'Loading...';
-                            let totalPrice = stockData
-                                ? price * stock.quantity
-                                : 'Loading...';
-                            let divRate;
-                            if (stockData) {
-                                if (stockData[stock.ticker].dividendRate) {
-                                    divRate = stockData[stock.ticker].dividendRate;
-                                } else if (stock.custom_dividend_rate >= 0) {
-                                    divRate = stock.custom_dividend_rate;
-                                }
-                            } else {
-                                divRate = 'Loading...';
-                            }
-                            let divYield;
-                            if (stockData) {
-                                divYield = stockData[stock.ticker].dividendYield
-                                    ? stockData[stock.ticker].dividendYield
-                                    : divRate / price;
-                            } else {
-                                divYield = 'Loading...';
-                            }
-                            const exDate = stockData
-                                ? convertDateToWord(stockData[stock.ticker].exDividendDate)
-                                : 'Loading...';
-                            if (price !== 'Loading...') {
-                                price = formatPrice(price, "Price not found.");
-                            }
-                            if (totalPrice !== 'Loading...') {
-                                totalPrice = formatPrice(totalPrice, "Price not found.");
-                            }
-                            if (divRate !== 'Loading...') {
-                                divRate = formatPrice(divRate, "N/A");
-                            }
-                            if (divYield !== 'Loading...') {
-                                if (divYield) {
-                                    divYield = formatPercentage(divYield, "N/A");
+                <div className="div-table">
+                    <table className="portfolio-table">
+                        <tbody>
+                            <tr className="table-header-row table-header-portfolio">
+                                <th>Ticker</th>
+                                <th>Quantity</th>
+                                <th>Dividend Rate</th>
+                                <th>Dividend Yield</th>
+                                <th>Price Per Share</th>
+                                <th>Total Price</th>
+                                <th>Ex-Dividend Date</th>
+                                <th></th>
+                            </tr>
+                            {portfolio.stocks.map((stock, k) => {
+                                let price = stockData
+                                    ? stockData[stock.ticker].regularMarketPrice
+                                    : 'Loading...';
+                                let totalPrice = stockData
+                                    ? price * stock.quantity
+                                    : 'Loading...';
+                                let divRate;
+                                if (stockData) {
+                                    if (stockData[stock.ticker].dividendRate) {
+                                        divRate = stockData[stock.ticker].dividendRate;
+                                    } else if (stock.custom_dividend_rate >= 0) {
+                                        divRate = stock.custom_dividend_rate;
+                                    }
                                 } else {
-                                    divYield = "N/A";
+                                    divRate = 'Loading...';
                                 }
-                            }
-                            return (
-                                <tr className="table-data-row table-data-portfolio" key={k}>
-                                    <td>{stock.ticker}</td>
-                                    <td onClick={() => this.openEditModal(stock)}>
-                                        <div className='table-clickable'>
-                                            {stock.quantity}
-                                        </div>
-                                    </td>
-                                    <td onClick={() => this.openEditModal(stock)}>
-                                        <div className='table-clickable'>
-                                            {divRate}
-                                        </div>
-                                    </td>
-                                    <td>{divYield}</td>
-                                    <td>{price}</td>
-                                    <td>{totalPrice}</td>
-                                    <td>{exDate}</td>
-                                    <td>
-                                        <button
-                                            onClick={() => this.openDeleteModal(stock)}
-                                            className="table-button portfolio-delete"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                           );
-                        })}
-                    </tbody>
-                </table>
+                                let divYield;
+                                if (stockData) {
+                                    divYield = stockData[stock.ticker].dividendYield
+                                        ? stockData[stock.ticker].dividendYield
+                                        : divRate / price;
+                                } else {
+                                    divYield = 'Loading...';
+                                }
+                                const exDate = stockData
+                                    ? convertDateToWord(stockData[stock.ticker].exDividendDate)
+                                    : 'Loading...';
+                                if (price !== 'Loading...') {
+                                    price = formatPrice(price, "Price not found.");
+                                }
+                                if (totalPrice !== 'Loading...') {
+                                    totalPrice = formatPrice(totalPrice, "Price not found.");
+                                }
+                                if (divRate !== 'Loading...') {
+                                    divRate = formatPrice(divRate, "N/A");
+                                }
+                                if (divYield !== 'Loading...') {
+                                    if (divYield) {
+                                        divYield = formatPercentage(divYield, "N/A");
+                                    } else {
+                                        divYield = "N/A";
+                                    }
+                                }
+                                return (
+                                    <tr className="table-data-row table-data-portfolio" key={k}>
+                                        <td>{stock.ticker}</td>
+                                        <td onClick={() => this.openEditModal(stock)}>
+                                            <div className='table-clickable'>
+                                                {stock.quantity}
+                                            </div>
+                                        </td>
+                                        <td onClick={() => this.openEditModal(stock)}>
+                                            <div className='table-clickable'>
+                                                {divRate}
+                                            </div>
+                                        </td>
+                                        <td>{divYield}</td>
+                                        <td>{price}</td>
+                                        <td>{totalPrice}</td>
+                                        <td>{exDate}</td>
+                                        <td>
+                                            <button
+                                                onClick={() => this.openDeleteModal(stock)}
+                                                className="table-button portfolio-delete"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                               );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+                
             </div>
         );
     }

@@ -1,17 +1,33 @@
 .table-header-portfolio th{
-    font-size: 22px !important;
+    font-size: 18px !important;
 }
 
 .table-data-portfolio td{
-    font-size: 20px !important;
+    font-size: 16px !important;
 }
 
 .portfolio-delete {
-    font-size: 20px !important;
+    font-size: 16px !important;
 }
 
 .note-text {
     font-family: var(--general-font);
     font-size: 15px;
     padding-bottom: 20px;
+}
+
+.portfolio-table {
+    min-width: 900px;
+}
+
+@media only screen and (min-width: 1200px) {
+    .table-header-portfolio th{
+        font-size: 22px !important;
+    }
+    .table-data-portfolio td{
+        font-size: 20px !important;
+    }
+    .portfolio-delete {
+        font-size: 20px !important;
+    }
 }

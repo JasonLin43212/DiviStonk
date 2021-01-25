@@ -18,8 +18,8 @@ class TableView extends Component {
             return b_date - a_date;
         });
         return (
-            <div>
-                <table>
+            <div className="div-table">
+                <table className="dividend-table">
                     <tbody>
                         <tr className="table-header-row table-header-portfolio">
                             <th>Date</th>

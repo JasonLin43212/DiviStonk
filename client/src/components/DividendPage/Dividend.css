@@ -1,24 +1,25 @@
 /* Header */
 .dividend-add {
-    font-size: 25px;
+    font-size: 17px;
     font-weight: 500;
-    padding: 5px 15px;
+    padding: 3px 10px;
 }
 
 .dividend-add-div {
     margin-left: auto;
+    margin-top: -5px;
 }
 
 /* Div Nav */
 .dividend-nav {
-    margin-bottom: 40px;
+    margin-bottom: 25px;
 }
 
 .div-nav-btn {
-    font-size: 22px;
+    font-size: 16px;
     font-family: var(--general-font);
     font-weight: 500;
-    padding: 5px 15px;
+    padding: 5px 10px;
     background: white;
     border: 1px solid black;
     border-left: none;
@@ -45,31 +46,69 @@
     background: var(--project-background);
 }
 
+@media only screen and (min-width: 768px) {
+    .div-nav-btn {
+        font-size: 20px;
+        padding: 5px 15px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .dividend-nav {
+        margin-bottom: 40px;
+    }
+
+    .dividend-add {
+        font-size: 25px;
+        padding: 5px 15px;
+    }
+
+    .div-nav-btn {
+        font-size: 22px;
+        padding: 5px 15px;
+    }
+}
+
 /* Div Summary */
 .div-summary-title {
-    font-size: 35px;
+    font-size: 25px;
     font-family: var(--header-font);
     font-weight: 500;
     margin: 0 0 10px;
 }
 
 .div-summary-value {
-    margin-left: 1.5em;
-    font-size: 25px;
+    margin-left: 1em;
+    font-size: 20px;
     font-family: var(--general-font);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .div-summary-loading {
-    font-size: 50px;
+    font-size: 20px;
     font-family: var(--general-font);
+}
 
+@media only screen and (min-width: 1200px) {
+    .div-summary-title {
+        font-size: 35px;
+    }
+
+    .div-summary-value {
+        margin-left: 1.5em;
+        font-size: 25px;
+        margin-bottom: 30px;
+    }
+
+    .div-summary-loading {
+        font-size: 50px;
+    }
 }
 
 /* Graph View */
 .graph-title {
     font-family: var(--header-font);
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
 }
 
@@ -80,14 +119,41 @@
 .graph-label {
     display: inline-block !important;
     margin: 0 10px 0 0;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .graph-select {
-    font-size: 20px;
+    font-size: 18px;
     font-family: var(--general-font);
     margin-right: 20px;
     padding: 0 5px;
+}
+
+@media only screen and (min-width: 1200px) {
+    .graph-title {
+        font-size: 30px;
+    }
+
+    .graph-label {
+        font-size: 20px;
+    }
+
+    .graph-select {
+        font-size: 20px;
+    }
+}
+
+.graph {
+    overflow-x: scroll;
+}
+
+/* Table View*/
+.div-table{
+    overflow-x: scroll;
+}
+
+.dividend-table {
+    min-width: 650px;
 }
 
 /* Dividend Modal */

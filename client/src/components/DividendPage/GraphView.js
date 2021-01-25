@@ -213,7 +213,7 @@ class GraphView extends Component {
                     </select>
                 </div>
                 <div className="graph-title">Dividends Earned</div>
-                <div ref={this.testRef} />
+                <div className="graph" ref={this.testRef} />
             </div>
         )
     }
