@@ -73,7 +73,7 @@ class Register extends Component {
                             name={field.name}
                             label={field.label}
                             handleinput={this.handleInput}
-                            fontSize="22px"
+                            fontSize="20px"
                         />
                     ))}
                     <input
