@@ -19,7 +19,7 @@ class Nav extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openNav: true,
+            openNav: false,
         }
     }
 
@@ -78,7 +78,7 @@ class Nav extends Component {
                     DiviStonk
                     <div
                         onClick={() => this.toggleNav(false)}
-                        className="d-inline d-none-lg navbar-close"
+                        className="d-inline d-none-xl navbar-close"
                     >
                         &#60;
                     </div>
@@ -117,18 +117,20 @@ class Nav extends Component {
 
         return (
             <>
-                <div className="navbar d-block-lg d-none">
+                <div className="navbar d-block-xl d-none">
                     {navContent}
                 </div>
                 {
                     this.state.openNav ?
-                        (<div className="navbar d-none-lg d-block">
+                        (<div className="navbar d-none-xl d-block">
                             {navContent}
                         </div>) :
-                        (<div className="hamburger" onClick={() => this.toggleNav(true)}>
+                        (<div className="hamnav d-none-xl d-block">
+                            <div className="hamburger" onClick={() => this.toggleNav(true)}>
                                 <div className="rectangle"/>
                                 <div className="rectangle"/>
                                 <div className="rectangle"/>
+                            </div>
                         </div>)
                 }
             </>

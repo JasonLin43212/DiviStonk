@@ -40,11 +40,11 @@
     font-family: var(--header-font);
     margin: 0 0 20px;
     font-weight: 400;
-    font-size: 40px;
+    font-size: 43px;
 }
 
 .navbar-close {
-    padding-left: 40px;
+    padding-left: 30px;
     font-size: 40px;
     cursor: pointer;
     font-weight: 700;
@@ -84,19 +84,12 @@
     margin-bottom: 20px;
 }
 
-/* Large Screens No Hamburger */
+/* Extra Large Screens No Hamburger */
 @media only screen and (min-width: 1200px) {
     .navbar {
         width: 18%;
-        position: fixed;
-        left: 0;
-        height: 100vh;
         box-shadow: 1px 1px 8px 1px #AAA;
-        display: flex;
-        flex-direction: column;
         padding: 1% 0 0 2%;
-        z-index: 100;
-        overflow: auto;
     }
 
     .navlink {
@@ -104,9 +97,6 @@
     }
 
     .navbar-title {
-        color: black;
-        margin: 0 0 20px;
-        font-weight: 400;
         font-size: 45px;
     }
 
@@ -128,10 +118,18 @@
     }
 }
 
-.hamburger {
+.hamnav {
     position: fixed;
-    left: 30px;
-    top: 30px;
+    left: 0;
+    top: 0;
+    height: 70px;
+    width: 100%;
+    background: #d8d8d8;
+    box-shadow: 1px 1px 8px 1px #AAA;
+}
+
+.hamburger {
+    padding: 20px 30px;
     width: 40px;
     height: 36px;
     cursor: pointer;
