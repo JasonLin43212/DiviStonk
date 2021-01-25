@@ -1,5 +1,6 @@
 .search-form {
     display: flex;
+    flex-wrap: wrap;
     margin-bottom: 40px;
 }
 
@@ -7,19 +8,22 @@
     font-size: 25px;
     font-family: var(--general-font);
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .search-input {
-    width: 40%;
+    width: 100%;
     margin-right: 10px;
+    margin-bottom: 10px;
     font-size: 22px;
     font-family: var(--general-font);
     padding: 0 10px;
 }
 
 .search-btn {
-    font-size: 25px;
-    width: 10%;
+    font-size: 20px;
+    width: 98%;
+    margin-bottom: 10px;
     font-family: var(--general-font);
 }
 
@@ -30,6 +34,31 @@
     color: red;
     margin-top: -20px;
     margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 768px) {
+    .search-btn {
+        width: 100px;
+    }
+    .search-input {
+        width: 400px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .search-label {
+        font-size: 30px;
+    }
+
+    .search-input {
+        width: 400px;
+        font-size: 25px;
+    }
+
+    .search-btn {
+        font-size: 25px;
+        width: 100px;
+    }
 }
 
 .built-in-stock {
@@ -56,31 +85,32 @@
     width: 100%;
     border: 1px solid black;
     padding-bottom: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .stock-title {
     background: #D8D8D8;
     padding: 10px 25px;
-    font-size: 30px;
+    font-size: 25px;
     font-family: var(--general-font);
     font-weight: 600;
     border-bottom: 1px solid black;
 }
 
 .stock-info {
-    padding: 10px 25px;
-    font-size: 25px;
+    padding: 10px 20px;
+    font-size: 20px;
     font-family: var(--general-font);
     font-weight: 500;
 }
 
 .stock-btn {
-    font-size: 25px;
+    font-size: 20px;
     font-family: var(--general-font);
     font-weight: 500;
     margin: 10px 25px;
     padding: 5px 20px;
+    width: 300px;
 }
 
 .no-portfolio {
@@ -88,4 +118,30 @@
     font-family: var(--general-font);
     font-weight: 500;
     padding-bottom: 20px;
+}
+
+@media only screen and (min-width: 1200px) {
+    .stock-result {
+        margin-bottom: 50px;
+    }
+
+    .stock-title {
+        font-size: 30px;
+    }
+
+    .stock-info {
+        padding: 10px 25px;
+        font-size: 25px;
+    }
+
+    .stock-btn {
+        font-size: 25px;
+    }
+
+    .no-portfolio {
+        font-size: 22px;
+        font-family: var(--general-font);
+        font-weight: 500;
+        padding-bottom: 20px;
+    }
 }
