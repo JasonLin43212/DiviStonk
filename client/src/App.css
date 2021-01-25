@@ -116,3 +116,62 @@ td {
 .table-clickable:hover {
     color: #666;
 }
+
+/* Extra Small Screen*/
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-inline {
+    display: inline;
+}
+
+/* Small Screen */
+@media only screen and (min-width: 992px) {
+    .d-none-sm {
+        display: none;
+    }
+
+    .d-block-sm {
+        display: block;
+    }
+
+    .d-inline-sm {
+        display: inline;
+    }
+}
+
+/* Medium Screen */
+@media only screen and (min-width: 992px) {
+    .d-none-md {
+        display: none;
+    }
+
+    .d-block-md {
+        display: block;
+    }
+
+    .d-inline-md {
+        display: inline;
+    }
+}
+
+/* Large Screen */
+@media only screen and (min-width: 992px) {
+    .d-none-lg {
+        display: none;
+    }
+
+    .d-block-lg {
+        display: block;
+    }
+
+    .d-inline-lg {
+        display: inline;
+    }
+}
+

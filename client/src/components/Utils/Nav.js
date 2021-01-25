@@ -16,6 +16,17 @@ const NAVLINKS = [
 class Nav extends Component {
     static contextType = AuthenticationContext;
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            openNav: true,
+        }
+    }
+
+    toggleNav = (openNav) => {
+        this.setState({ openNav });
+    }
+
     getSummaryDetails = () => {
         const { stockData } = this.context;
         let totalStockValue = 0;
@@ -61,9 +72,18 @@ class Nav extends Component {
         const currentPath = this.props.location.pathname;
         const summaryDetails = this.getSummaryDetails();
 
-        return (
-            <div className="navbar">
-                <h1 className="navbar-title">DiviStonk</h1>
+        const navContent = (
+            <>
+                <h1 className="navbar-title">
+                    DiviStonk
+                    <div
+                        onClick={() => this.toggleNav(false)}
+                        className="d-inline d-none-lg navbar-close"
+                    >
+                        &#60;
+                    </div>
+                </h1>
+
                 {NAVLINKS.map((navlink,k) => (
                     <Link
                         key={k}
@@ -93,8 +113,26 @@ class Nav extends Component {
                 >
                     Logout
                 </div>
-            </div>
-        );
+            </>);
+
+        return (
+            <>
+                <div className="navbar d-block-lg d-none">
+                    {navContent}
+                </div>
+                {
+                    this.state.openNav ?
+                        (<div className="navbar d-none-lg d-block">
+                            {navContent}
+                        </div>) :
+                        (<div className="hamburger" onClick={() => this.toggleNav(true)}>
+                                <div className="rectangle"/>
+                                <div className="rectangle"/>
+                                <div className="rectangle"/>
+                        </div>)
+                }
+            </>
+        )
     }
 }
 

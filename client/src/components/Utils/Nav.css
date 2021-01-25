@@ -1,5 +1,5 @@
 .navbar {
-    width: 18%;
+    width: 260px;
     position: fixed;
     left: 0;
     height: 100vh;
@@ -7,7 +7,7 @@
     box-shadow: 1px 1px 8px 1px #AAA;
     display: flex;
     flex-direction: column;
-    padding: 1% 0 0 2%;
+    padding: 20px 0 0 40px;
     z-index: 100;
     overflow: auto;
 }
@@ -17,8 +17,9 @@
     text-decoration: none;
     cursor: pointer;
     font-family: var(--general-font);
-    font-size: 22px;
+    font-size: 20px;
     margin: 0 0 10px;
+    display: block;
 }
 
 .navlink:hover {
@@ -39,7 +40,19 @@
     font-family: var(--header-font);
     margin: 0 0 20px;
     font-weight: 400;
-    font-size: 45px;
+    font-size: 40px;
+}
+
+.navbar-close {
+    padding-left: 40px;
+    font-size: 40px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #555555;
+}
+
+.navbar-close:hover {
+    color: black;
 }
 
 /* Nav Summary */
@@ -50,7 +63,7 @@
 .navbar-summary {
     font-family: var(--header-font);
     color: black;
-    font-size: 38px;
+    font-size: 34px;
     margin-bottom: 20px;
     font-weight: 400;
 }
@@ -58,7 +71,7 @@
 .nav-detail-title {
     font-family: var(--general-font);
     color: black;
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 5px;
     font-weight: 600;
 }
@@ -66,7 +79,71 @@
 .nav-detail-value {
     font-family: var(--general-font);
     color: black;
-    font-size: 18px;
+    font-size: 17px;
     margin-left: 1.5em;
     margin-bottom: 20px;
+}
+
+/* Large Screens No Hamburger */
+@media only screen and (min-width: 1200px) {
+    .navbar {
+        width: 18%;
+        position: fixed;
+        left: 0;
+        height: 100vh;
+        box-shadow: 1px 1px 8px 1px #AAA;
+        display: flex;
+        flex-direction: column;
+        padding: 1% 0 0 2%;
+        z-index: 100;
+        overflow: auto;
+    }
+
+    .navlink {
+        font-size: 22px;
+    }
+
+    .navbar-title {
+        color: black;
+        margin: 0 0 20px;
+        font-weight: 400;
+        font-size: 45px;
+    }
+
+    /* Nav Summary */
+    .nav-summary {
+        margin: 30px 0 30px;
+    }
+
+    .navbar-summary {
+        font-size: 38px;
+    }
+
+    .nav-detail-title {
+        font-size: 20px;
+    }
+
+    .nav-detail-value {
+        font-size: 18px;
+    }
+}
+
+.hamburger {
+    position: fixed;
+    left: 30px;
+    top: 30px;
+    width: 40px;
+    height: 36px;
+    cursor: pointer;
+}
+
+.hamburger:hover .rectangle {
+    background: black;
+}
+
+.rectangle {
+    width: 40px;
+    height: 6px;
+    margin: 0 0 6px;
+    background: #555555;
 }
