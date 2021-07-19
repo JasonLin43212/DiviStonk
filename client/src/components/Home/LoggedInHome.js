@@ -33,6 +33,7 @@ class LoggedInHome extends Component {
     render() {
         const { user } = this.context;
         const stockData = this.context.stockData ? this.context.stockData : null;
+        console.log(stockData)
 
         const timeOfDay = new Date(Date.now());
         const hour = timeOfDay.getHours();
@@ -85,7 +86,10 @@ class LoggedInHome extends Component {
                             let totalValue = "Getting Total Value...";
                             if (stockData) {
                                 totalValue = portfolio.stocks.reduce((acc, stock) => {
-                                    return acc + (stockData[stock.ticker].regularMarketPrice * stock.quantity);
+                                    if (stockData[stock.ticker]) {
+                                        return acc + (stockData[stock.ticker].regularMarketPrice * stock.quantity);
+                                    }
+                                    return acc;
                                 }, 0);
                                 totalValue = Math.round(totalValue * 100) / 100;
                                 totalValue = "$" + totalValue;

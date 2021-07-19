@@ -15,6 +15,9 @@ class TableView extends Component {
         user_dividends.sort((a, b) => {
             const a_date = new Date(a.date);
             const b_date = new Date(b.date);
+            if (a_date.getTime() === b_date.getTime()) {
+                return b.id - a.id;
+            }
             return b_date - a_date;
         });
         return (

@@ -20,9 +20,8 @@ class SummaryView extends Component {
 
         if (stockData) {
             const today = new Date(Date.now());
-            // const date = today.getDate();
             const month = today.getMonth();
-            // const year = today.getFullYear();
+            const year = today.getFullYear();
 
             for (let portfolio of this.context.user.portfolios) {
                 for (let stock of portfolio.stocks) {
@@ -66,15 +65,17 @@ class SummaryView extends Component {
                 const divDate = new Date(dividend.date);
                 divDate.setDate(divDate.getDate() + 1);
 
-                // const divDay = divDate.getDate();
                 const divMonth = divDate.getMonth();
-                // const divYear = divDate.getFullYear();
+                const divYear = divDate.getFullYear();
 
-                if (divMonth === month) {
-                    curMonthDivEarned += quantity * dividend_per_stock;
-                } else if ((month === 0 && divMonth === 11) || (divMonth === month -1)) {
-                    prevMonthDivEarned += quantity * dividend_per_stock;
+                if (year === divYear) {
+                    if (divMonth === month) {
+                        curMonthDivEarned += quantity * dividend_per_stock;
+                    } else if ((month === 0 && divMonth === 11) || (divMonth === month - 1)) {
+                        prevMonthDivEarned += quantity * dividend_per_stock;
+                    }
                 }
+               
             }
         }
 

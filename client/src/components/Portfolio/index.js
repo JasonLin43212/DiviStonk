@@ -89,14 +89,14 @@ class Portfolio extends Component {
                                 <th></th>
                             </tr>
                             {portfolio.stocks.map((stock, k) => {
-                                let price = stockData
+                                let price = stockData && stockData[stock.ticker]
                                     ? stockData[stock.ticker].regularMarketPrice
                                     : 'Loading...';
                                 let totalPrice = stockData
                                     ? price * stock.quantity
                                     : 'Loading...';
                                 let divRate;
-                                if (stockData) {
+                                if (stockData && stockData[stock.ticker]) {
                                     if (stockData[stock.ticker].dividendRate) {
                                         divRate = stockData[stock.ticker].dividendRate;
                                     } else if (stock.custom_dividend_rate >= 0) {
@@ -106,14 +106,14 @@ class Portfolio extends Component {
                                     divRate = 'Loading...';
                                 }
                                 let divYield;
-                                if (stockData) {
+                                if (stockData && stockData[stock.ticker]) {
                                     divYield = stockData[stock.ticker].dividendYield
                                         ? stockData[stock.ticker].dividendYield
                                         : divRate / price;
                                 } else {
                                     divYield = 'Loading...';
                                 }
-                                const exDate = stockData
+                                const exDate = stockData && stockData[stock.ticker]
                                     ? convertDateToWord(stockData[stock.ticker].exDividendDate)
                                     : 'Loading...';
                                 if (price !== 'Loading...') {
